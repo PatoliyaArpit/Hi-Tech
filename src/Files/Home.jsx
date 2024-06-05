@@ -456,7 +456,7 @@ console.log("asso",valueaccessories)
                   let Convert = Number(Price);
                   let Total = Convert + TotalDiscount;
 
-                  // console.log(Total);
+                  
 
                   return (
                     <div className="col-lg-4 col-sm-6 col-md-6 col-12" key={Id}>
