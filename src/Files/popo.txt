@@ -1,0 +1,33 @@
+
+import React from "react";
+
+const Poppop = (props) => {
+  return (
+    <>
+      <section className="modal-wrapper">
+        <div className="model-container">
+          <button className="close" onClick={props.pass}>
+            {" "}
+            X
+          </button>
+          <h2> hello</h2>
+         
+          <div
+         
+            className="subcontainer"
+          >
+            <label style={{ fontSize: "1.5rem" }}>Email :</label>{" "}
+            <input type="text" name="Name" placeholder="Full Name" />
+            <label style={{ fontSize: "1.5rem" }}> Password: </label>
+            <input type="text" placeholder="Enter Password"></input>
+          </div>
+          <button className="model-btn" onClick={props.pass}>
+            Accept
+          </button>
+        </div>
+      </section>
+    </>
+  );
+};
+
+export default Poppop;

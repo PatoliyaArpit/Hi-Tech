@@ -1,0 +1,372 @@
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import ShowModel from "./Popup";
+import Poppop from "./Poppop";
+import { BsSearch } from "react-icons/bs";
+
+const Header = (props) => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState(null);
+  const cartitem = useSelector((state) => state.cart.cart);
+  const final = useSelector((state) => state.log.log);
+  console.log(final.length);
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+
+  const closeMenu = () => {
+    setMenuOpen(false);
+    setActiveDropdown(null);
+  };
+
+  const handleDropdownToggle = (menu) => {
+    setActiveDropdown(activeDropdown === menu ? null : menu);
+  };
+
+  const [pop, setpop] = useState(false);
+  const btn = () => {
+    setpop(false);
+  };
+
+  // useEffect(() => {
+  //   final.length === 0 &&
+  //     setTimeout(() => {
+  //       setpop(true);
+  //     }, 11000);
+  // }, []);
+
+  return (
+    <>
+      <header>
+        {pop ? <Poppop pass={btn} /> : null}
+        <div className="header-upper-area">
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-5 d-none d-md-block col-md-5">
+                <div className="lang-time">
+                  <div className="lt-time">
+                    <p className="time">
+                      <span>
+                        <i className="far fa-clock" />
+                      </span>{" "}
+                      Mon - Sat 8.00 - 18.00. Sunday CLOSED
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="col-lg-5 col-sm-12 col-md-7 col-12">
+                <div className="address-phone">
+                  <div className="ap-address">
+                    <p className="address">
+                      <span>
+                        <i className="fas fa-map-marker-alt" />
+                      </span>{" "}
+                      Shukan Road Ahemdabad,382350
+                    </p>
+                  </div>
+                  <div className="ap-phone">
+                    <p className="phone">
+                      <span>
+                        <i className="fas fa-phone" />
+                      </span>{" "}
+                      +91 93168 68577
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="col-lg-2 col-sm-12 col-md-12 col-12">
+                <div className="header-social">
+                  <ul>
+                    <li>
+                      <a href="https://www.facebook.com/" target="_blank">
+                        <i className="fab fa-facebook-f" />
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://twitter.com/home" target="_blank">
+                        <i className="fab fa-twitter" />
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.linkedin.com/feed/" target="_blank">
+                        <i className="fab fa-linkedin-in" />
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.instagram.com/" target="_blank">
+                        <i className="fab fa-instagram" />
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div className="menu-area ">
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-2 col-sm-10 col-10 logo">
+                <div className="logo">
+                  <a href="23_index-4.html">
+                    <img src="img/home1/hitech2.jpg" alt="" />
+                  </a>
+                </div>
+              </div>
+
+              <div className="col-lg-7 offset-lg-0 col-md-6 offset-md-0 col-sm-10 offset-sm-0 col-12 allmenu">
+                <div className="menu">
+                  <nav id="mobile_menu_active">
+                    <Link
+                      className="res"
+                      style={{ width: "5%" }}
+                      onClick={toggleMenu}
+                    >
+                      <i
+                        className="fa-solid fa-bars text-gray-600"
+                        style={{ margin: "0 0 0 0" }}
+                      ></i>
+                    </Link>
+                    
+                    <ul
+                      style={{ margin: "0 20% 0 0 " }}
+                      className={`responcive ${menuOpen ? "open" : ""}`}
+                    >
+                      <li>
+                        <Link as="Link" to="/" className="nav-link">
+                          Home
+                        </Link>
+                      </li>
+                      <li>
+                        <Link as="Link" to="/About" className="nav-link">
+                          About
+                        </Link>
+                      </li>
+                      <li>
+                        <Link as="Link" to="/Service" className="nav-link">
+                          Services
+                        </Link>
+                      </li>
+
+                      <li
+                        className={` drop ${
+                          activeDropdown === "Cases" ? "open" : null
+                        }`}
+                        onMouseEnter={() => handleDropdownToggle("Cases")}
+                      >
+                        <a href="07_case-study.html" className="nav-link">
+                          Cases
+                        </a>
+                        <ul className="collapse list-unstyled" id="homeSubmenu">
+                          <li>
+                            <Link as="Link" to="/Case" className="nav-link">
+                              Cases
+                            </Link>
+                          </li>
+                          <li>
+                            <Link as="Link" to="/CaseD" className="nav-link">
+                              Case Details
+                            </Link>
+                          </li>
+                        </ul>
+                      </li>
+                      <li
+                        className={`mega drop ${
+                          activeDropdown === "Shortcode" ? "open" : null
+                        }`}
+                        onMouseEnter={() => handleDropdownToggle("Shortcode")}
+                      >
+                        <a className="disable nav-link" href="#">
+                          Shortcode
+                        </a>
+                        <ul
+                          className="mega-menu"
+                          style={{
+                            display: "grid",
+                            gridTemplateColumns: "auto auto",
+                          }}
+                        >
+                          <li>
+                            <a href="#" className="nav-link">
+                              Column 1
+                            </a>
+                            <ul>
+                              <li>
+                                <a
+                                  href="26_shortcode-grid.html"
+                                  className="nav-link"
+                                >
+                                  Tracking
+                                </a>
+                              </li>
+                              <li>
+                                <Link as="Link" to="/List" className="nav-link">
+                                  List
+                                </Link>
+                              </li>
+                              <li>
+                                <Link as="Link" to="/Team" className="nav-link">
+                                  Team
+                                </Link>
+                              </li>
+                              <li>
+                                <Link as="Link" to="/Gimg" className="nav-link">
+                                  Image Box
+                                </Link>
+                              </li>
+                              <li>
+                                <Link
+                                  as={Link}
+                                  to="/Gallery"
+                                  className="nav-link"
+                                >
+                                  Galleries
+                                </Link>
+                              </li>
+                            </ul>
+                          </li>
+                          <li>
+                            <a href="#" className="nav-link">
+                              Column 2
+                            </a>
+                            <ul>
+                              <li>
+                                <Link
+                                  as={Link}
+                                  to="/Price"
+                                  className="nav-link"
+                                >
+                                  Pricing
+                                </Link>
+                              </li>
+                              <li>
+                                <Link as={Link} to="/Step" className="nav-link">
+                                  Process Steps
+                                </Link>
+                              </li>
+                              <li>
+                                <Link
+                                  as="Link"
+                                  to="/Contact"
+                                  className="nav-link"
+                                >
+                                  Contact
+                                </Link>
+                              </li>
+                              <li>
+                                <Link as="Link" to="/Map" className="nav-link">
+                                  Maps
+                                </Link>
+                              </li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
+              </div>
+
+              <div
+                className="col-lg-3 col-sm-8 col-12 mb-3"
+                style={{ margin: "0 0 0 0  " }}
+              >
+                <div className="search-consultant">
+                  <div
+                    className="sc-search"
+                    style={{
+                      display: "grid",
+                      gridTemplateColumns: "auto auto auto",
+                    }}
+                  >
+                    <span
+                      data-toggle="modal"
+                      data-target="#search_modal"
+                      className="search"
+                      style={{ margin: "0 -8% 0 8%" }}
+                    >
+                      <i className="fa fa-search" />
+                    </span>
+                    {/* search-modal-start */}
+                    <div
+                      id="search_modal"
+                      className="search-modal modal fade"
+                      tabIndex={-1}
+                      role="dialog"
+                      aria-hidden="true"
+                    >
+                      <div className="modal-dialog">
+                        {/* Modal content*/}
+                        <div className="modal-content">
+                          <h4 className="modal-title">Type and Press Enter</h4>
+                          <form action="#">
+                            <input type="text" placeholder="Search Here" />
+                            <button className=" btn-success ml-3 rounded-pill w-6   ">
+                              Search
+                            </button>
+                            <BsSearch />
+                          </form>
+                          <div className="modal-close">
+                            <button type="button" data-dismiss="modal">
+                              Close
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    {/* search-modal-end */}
+                    <div
+                      className="sc-consultant"
+                      // style={{
+                      //   display: "grid",
+                      //   gridTemplateColumns: "auto auto",
+                      // }}
+                    >
+                      <div>
+                        {final.length === 0 ? (
+                          <Link
+                            as={Link}
+                            onClick={() => setpop(true)}
+                            className="link nav-link"
+                          >
+                            Login
+                          </Link>
+                        ) : (
+                          <Link
+                            as={Link}
+                            to="/Profile"
+                            className="link nav-link"
+                          >
+                            <i class="fa-regular fa-user"></i>
+                          </Link>
+                        )}
+                      </div>
+                      <div>
+                        {" "}
+                        <Link
+                          as={Link}
+                          to="/Checkout"
+                          className="link nav-link"
+                        >
+                          <i className="fa-solid fa-cart-shopping" />{" "}
+                          {cartitem.length}
+                        </Link>
+                        {/* <Link as={Link} to="/MyAdmin" className="link nav-link">admi</Link> */}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+    </>
+  );
+};
+
+export default Header;

@@ -1,0 +1,1129 @@
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
+function About() {
+  const [data, setdata] = useState([]);
+  const cartitem = useSelector((state) => state.cart.cart);
+
+  useEffect(() => {
+    call();
+  }, [data])
+  const call = () => {
+    fetch("http://localhost/About.php").then((result) => {
+      return result.json()
+    }).then((res) => {
+      setdata(res);
+    });
+  }
+
+
+  return (
+    <div>
+      <>
+        <header>
+          <div className="header-upper-area">
+            <div className="container">
+              <div className="row">
+                <div className="col-lg-5 d-none d-md-block col-md-5">
+                  <div className="lang-time">
+                    <div className="lt-language d-none d-xl-block">
+                      <p className="current">Languages</p>
+                      <ul className="list">
+                        <li>
+                          <a href="#">Englist</a>
+                        </li>
+                        <li>
+                          <a href="#">Spanish</a>
+                        </li>
+                        <li>
+                          <a href="#">Mandarin</a>
+                        </li>
+
+                      </ul>
+                    </div>
+                    <div className="lt-time">
+                      <p className="time">
+                        <span>
+                          <i className="far fa-clock" />
+                        </span>{" "}
+                        Mon - Sat 8.00 - 18.00. Sunday CLOSED
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-lg-5 col-sm-12 col-md-7 col-12">
+                  <div className="address-phone">
+                    <div className="ap-address">
+                      <p className="address">
+                        <span>
+                          <i className="fas fa-map-marker-alt" />
+                        </span>{" "}
+                        Shukan Road Ahemdabad,382350
+                      </p>
+                    </div>
+                    <div className="ap-phone">
+                      <p className="phone">
+                        <span>
+                          <i className="fas fa-phone" />
+                        </span>{" "}
+                        +91 93168 68577
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-lg-2 col-sm-12 col-md-12 col-12">
+                  <div className="header-social">
+                    <ul>
+                      <li>
+                        <a href="https://www.facebook.com/" target="_blank">
+                          <i className="fab fa-facebook-f" />
+                        </a>
+                      </li>
+                      <li>
+                        <a href="https://twitter.com/home" target="_blank">
+                          <i className="fab fa-twitter" />
+                        </a>
+                      </li>
+                      <li>
+                        <a href="https://www.linkedin.com/feed/" target="_blank">
+                          <i className="fab fa-linkedin-in" />
+                        </a>
+                      </li>
+
+                      <li>
+                        <a href="https://www.instagram.com/" target="_blank">
+                          <i className="fab fa-instagram" />
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="menu-area">
+            <div className="container">
+              <div className="row">
+                <div className="col-lg-2 col-sm-12 col-12">
+                  <div className="logo">
+                    <a href="23_index-4.html">
+                      <img src="img/home1/hitech2.jpg" alt="" />
+                    </a>
+                  </div>
+                </div>
+                <div className="col-lg-7 offset-lg-0 col-md-8 offset-md-2 col-sm-12 offset-sm-0 col-12">
+                  <div className="menu">
+                    <nav id="mobile_menu_active">
+                      <ul>
+                        <li className="active">
+
+                          <Link as="Link" to="/">Home</Link>
+
+                        </li>
+                        <li>
+                          {/* <a href="04_about.html">About Us</a> */}
+                          <Link as="Link" to="/About">About</Link>
+                        </li>
+                        <li>
+                          <a href="05_service.html">Services</a>
+                          <ul className="drop">
+                            <li>
+                              {/* <a href="05_service.html">Services</a> */}
+                              <Link as="Link" to="/Service">Services</Link>
+
+                            </li>
+                            <li>
+                              {/* <a href="06_service-details.html">Service Details</a> */}
+                              <Link as="Link" to="/ServiceD">Service Details</Link>
+                            </li>
+                          </ul>
+                        </li>
+                        <li>
+                          <a href="07_case-study.html">Cases</a>
+                          <ul className="drop">
+                            <li>
+                              {/* <a href="07_case-study.html">Cases</a> */}
+                              <Link as="Link" to="/Case">Cases</Link>
+
+                            </li>
+                            <li>
+                              {/* <a href="08_case-details.html">Case Details</a> */}
+                              <Link as="Link" to="/CaseD">Case Details</Link>
+                            </li>
+                          </ul>
+                        </li>
+                        <li className="mega">
+                          <a className="disable" href="#">
+                            Shortcode
+                          </a>
+                          <ul className="mega-menu">
+                            <li>
+                              <a href="#">Column 1</a>
+                              <ul>
+                                <li>
+                                  <a href="26_shortcode-grid.html">Tracking</a>
+                                </li>
+
+                                <li>
+                                  {/* <a href="28_shortcode-list.html">List</a> */}
+                                  <Link as="Link" to="/List">List</Link>
+                                </li>
+                                <li>
+                                  {/* <a href="36_shortcode-pricing.html">Team</a> */}
+                                  <Link as="Link" to="/Team">Team</Link>
+                                </li>
+                                <li>
+                                  <Link as="Link" to="/Gimg">Image Box</Link>
+                                </li>
+                                <li>
+                                  {/* <a href="42_shortcode-galleries.html">Galleries</a> */}
+                                  <Link as={Link} to="/Gallery">Galleries</Link>
+                                </li>
+                              </ul>
+                            </li>
+                            <li>
+                              <a href="#">Column 2</a>
+                              <ul>
+                                <li>
+                                  <Link as={Link} to="/Price">Pricing</Link>
+                                </li>
+
+                                <li>
+
+                                  <Link as={Link} to="/Step">Process Steps</Link>
+                                </li>
+                                <li>
+                                  <Link as="Link" to="/Contact">Contact</Link>
+                                </li>
+                                <li>
+                                  <Link as="Link" to="/Map">Maps</Link>
+                                </li>
+                              </ul>
+                            </li>
+
+
+                          </ul>
+                        </li>
+
+                      </ul>
+                    </nav>
+                  </div>
+                </div>
+                <div className="col-lg-3 col-sm-12 col-12">
+                  <div className="search-consultant">
+                    <div className="sc-search">
+                      <span data-toggle="modal" data-target="#search_modal">
+                        <i className="fa fa-search" />
+                      </span>
+                      {/* search-modal-start */}
+                      <div
+                        id="search_modal"
+                        className="search-modal modal fade"
+                        tabIndex={-1}
+                        role="dialog"
+                        aria-hidden="true"
+                      >
+                        <div className="modal-dialog">
+                          {/* Modal content*/}
+                          <div className="modal-content">
+                            <h4 className="modal-title">Type and Press Enter</h4>
+                            <form action="#">
+                              <input type="text" placeholder="Search Here" />
+                            </form>
+                            <div className="modal-close">
+                              <button type="button" data-dismiss="modal">
+                                Close
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      {/* search-modal-end */}
+                    </div>
+                    <div className="sc-consultant">
+                      {/* <a className="link" href="#">
+                        Free Consultation
+                      </a> */}
+                      <Link as={Link} to="/Register" className="link">Register</Link>
+                      <Link as={Link} to="/Checkout" className="link">
+                          Cart{cartitem.length}
+                        </Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </header>
+        {/* header-end */}
+        {/* breadcumb-area-start */}
+        <div className="breadcumb-area bg-with-black">
+          <div className="container">
+            <div className="row">
+              <div className="col-12">
+                <div className="breadcumb">
+                  <h2 className="name">About Us</h2>
+                  <ul className="links">
+                    <li>
+                      <a href="index.html">Home</a>
+                      <Link as="Link" to="/">Home</Link>
+
+                    </li>
+                    <li>
+                      <a href="04_about.html">About Us</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* breadcumb-area-end */}
+        {/* about-tab-area-start */}
+        <div className="about-tab-area">
+          <div className="container">
+            <div className="row">
+{
+  data.map((val)=>{
+    return
+  })
+}
+              <div className="col-lg-6 col-md-6 col-sm-12 col-12">
+                <div className="about-tab-img">
+                  <img src="http://localhost/master/Gallery/g5.jpg" alt="" />
+                </div>
+              </div>
+              <div className="col-lg-6 col-md-6 col-sm-12 col-12">
+                <div className="about-tab">
+                  <nav>
+                    <div className="nav nav-tabs" id="nav-tab" role="tablist">
+                      <a
+                        className="nav-item nav-link active"
+                        id="nav-mission-tab"
+                        data-toggle="tab"
+                        href="#nav-mission"
+                        role="tab"
+                        aria-controls="nav-mission"
+                        aria-selected="true"
+                      >
+                        Mission
+                      </a>
+                      <a
+                        className="nav-item nav-link"
+                        id="nav-vision-tab"
+                        data-toggle="tab"
+                        href="#nav-vision"
+                        role="tab"
+                        aria-controls="nav-vision"
+                        aria-selected="false"
+                      >
+                        Vision
+                      </a>
+                      <a
+                        className="nav-item nav-link"
+                        id="nav-values-tab"
+                        data-toggle="tab"
+                        href="#nav-values"
+                        role="tab"
+                        aria-controls="nav-values"
+                        aria-selected="false"
+                      >
+                        Values
+                      </a>
+                    </div>
+                  </nav>
+                  <div className="tab-content" id="nav-tabContent">
+                    <div
+                      className="tab-pane fade show active"
+                      id="nav-mission"
+                      role="tabpanel"
+                      aria-labelledby="nav-mission-tab"
+                    >
+                      <div className="about-tab-box">
+                        <p>
+                          Lorem Ipsum is simply dummy text of the printing and
+                          typesetting industry. Lorem Ipsum has been the industry's
+                          standard dummy text ever since beenLorem Ipsum is simply
+                          ithe dummy text of the printing and typesetting industry.
+                          Lorem Ipsum is has been the dummy industry's standard dummy.
+                        </p>
+                        <ul>
+                          <li>
+                            <span>
+                              <i className="fas fa-check-circle" />
+                            </span>{" "}
+                            Deliver a high quality web design.
+                          </li>
+                          <li>
+                            <span>
+                              <i className="fas fa-check-circle" />
+                            </span>{" "}
+                            Support our customers once signing a contract
+                          </li>
+                          <li>
+                            <span>
+                              <i className="fas fa-check-circle" />
+                            </span>{" "}
+                            Streamline an expanded array of web
+                          </li>
+                          <li>
+                            <span>
+                              <i className="fas fa-check-circle" />
+                            </span>{" "}
+                            Pursue web-enabled niche markets with professionals
+                          </li>
+                          <li>
+                            <span>
+                              <i className="fas fa-check-circle" />
+                            </span>{" "}
+                            We love what we do and we do it with passion!
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+
+                     <div
+                      className="tab-pane fade"
+                      id="nav-vision"
+                      role="tabpanel"
+                      aria-labelledby="nav-vision-tab"
+                    >
+                      <div className="about-tab-box">
+                        <p>
+                          Lorem Ipsum is simply dummy text of the printing and
+                          typesetting industry. Lorem Ipsum has been the industry's
+                          standard dummy text ever since beenLorem Ipsum is simply
+                          ithe dummy text of the printing and typesetting industry.
+                          Lorem Ipsum is has been the dummy industry's standard dummy.
+                        </p>
+                        <ul>
+                          <li>
+                            <span>
+                              <i className="fas fa-check-circle" />
+                            </span>{" "}
+                            Deliver a high quality web design.
+                          </li>
+                          <li>
+                            <span>
+                              <i className="fas fa-check-circle" />
+                            </span>{" "}
+                            Support our customers once signing a contract
+                          </li>
+                          <li>
+                            <span>
+                              <i className="fas fa-check-circle" />
+                            </span>{" "}
+                            Streamline an expanded array of web
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div
+                      className="tab-pane fade"
+                      id="nav-values"
+                      role="tabpanel"
+                      aria-labelledby="nav-values-tab"
+                    >
+                      <div className="about-tab-box">
+                        <p>
+                          Lorem Ipsum is simply dummy text of the printing and
+                          typesetting industry. Lorem Ipsum has been the industry's
+                          standard dummy text ever since beenLorem Ipsum is simply
+                          ithe dummy text of the printing and typesetting industry.
+                          Lorem Ipsum is has been the dummy industry's standard dummy.
+                        </p>
+                        <ul>
+                          <li>
+                            <span>
+                              <i className="fas fa-check-circle" />
+                            </span>{" "}
+                            Pursue web-enabled niche markets with professionals
+                          </li>
+                          <li>
+                            <span>
+                              <i className="fas fa-check-circle" />
+                            </span>{" "}
+                            We love what we do and we do it with passion!
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                     
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* about-tab-area-end */}
+        {/* about-video-area-start */}
+        <div className="about-video-area bg-with-black">
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-8 offset-lg-2 col-12">
+                <div className="about-video">
+                  <a
+                    className="popup-youtube"
+                    href="https://www.youtube.com/watch?v=huEXwiqXezc" target="_blank"
+                  >
+                    <i className="fas fa-play" />
+                  </a>
+                  <h2 className="title">Take a Video</h2>
+                  <p className="text">
+                    Lorem Ipsum is simply dummy text of the printing and typesetting
+                    industry. Lorem Ipsum has been the industry's standard dummy text
+                    ever since beenLorem Ipsum is simply ithe dummy.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* about-video-area-end */}
+        {/* team-area-start */}
+        <div className="team-area">
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-sm-12 col-12">
+                <div className="section-title">
+                  <h6>Our Team</h6>
+                  <h2>We Are Team Of Professionals</h2>
+                  <p>
+                    There are many variations of passages of Lorem Ipsum available but
+                    the majority have suffered alteration in some form by injected
+                    humour or randomised words which even slightly believable.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-lg-6 offset-lg-0 col-md-8 offset-md-2 col-sm-12 col-12">
+                <div className="all-progess">
+                  <div className="skills-progress" data-sr="enter">
+                    <div className="progress">
+                      <div
+                        className="progress-bar"
+                        role="progressbar"
+                        aria-valuenow={60}
+                        aria-valuemin={0}
+                        aria-valuemax={100}
+                        style={{ width: "91%" }}
+                      >
+                        <span>91%</span>
+                      </div>
+                    </div>
+                    <h5 className="progressbar-title">Business Consulting</h5>
+                  </div>
+                  <div className="skills-progress" data-sr="enter">
+                    <div className="progress">
+                      <div
+                        className="progress-bar"
+                        role="progressbar"
+                        aria-valuenow={60}
+                        aria-valuemin={0}
+                        aria-valuemax={100}
+                        style={{ width: "82%" }}
+                      >
+                        <span>82%</span>
+                      </div>
+                    </div>
+                    <h5 className="progressbar-title">Financial Advicing</h5>
+                  </div>
+                  <div className="skills-progress" data-sr="enter">
+                    <div className="progress">
+                      <div
+                        className="progress-bar"
+                        role="progressbar"
+                        aria-valuenow={60}
+                        aria-valuemin={0}
+                        aria-valuemax={100}
+                        style={{ width: "97%" }}
+                      >
+                        <span>97%</span>
+                      </div>
+                    </div>
+                    <h5 className="progressbar-title">Brand Consulting</h5>
+                  </div>
+                  <div className="skills-progress" data-sr="enter">
+                    <div className="progress">
+                      <div
+                        className="progress-bar"
+                        role="progressbar"
+                        aria-valuenow={60}
+                        aria-valuemin={0}
+                        aria-valuemax={100}
+                        style={{ width: "77%" }}
+                      >
+                        <span>77%</span>
+                      </div>
+                    </div>
+                    <h5 className="progressbar-title">Business Idea</h5>
+                  </div>
+                </div>
+              </div>
+              <div className="col-lg-6 offset-lg-0 col-md-8 offset-md-2 col-sm-12 col-12">
+                <div className="all-team">
+                  <div className="single-team">
+                    <div className="img">
+                      <img src="img/home1/Team1.jpg" alt="" />
+                      <div className="content">
+                        <span className="default">
+                          <i className="flaticon-network" />
+                        </span>
+                        <ul className="social">
+                          <li>
+                            <a href="#" target="_blank">
+                              <i className="fab fa-facebook-f" />
+                            </a>
+                          </li>
+                          <li>
+                            <a href="#" target="_blank">
+                              <i className="fab fa-twitter" />
+                            </a>
+                          </li>
+                          <li>
+                            <a href="#" target="_blank">
+                              <i className="fab fa-google-plus-g" />
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="single-team">
+                    <div className="img">
+                      <img src="img/home1/Team2.jpg" alt="" />
+                      <div className="content">
+                        <span className="default">
+                          <i className="flaticon-network" />
+                        </span>
+                        <ul className="social">
+                          <li>
+                            <a href="#" target="_blank">
+                              <i className="fab fa-facebook-f" />
+                            </a>
+                          </li>
+                          <li>
+                            <a href="#" target="_blank">
+                              <i className="fab fa-twitter" />
+                            </a>
+                          </li>
+                          <li>
+                            <a href="#" target="_blank">
+                              <i className="fab fa-google-plus-g" />
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="single-team">
+                    <div className="img">
+                      <img src="img/home1/Team3.jpg" alt="" />
+                      <div className="content">
+                        <span className="default">
+                          <i className="flaticon-network" />
+                        </span>
+                        <ul className="social">
+                          <li>
+                            <a href="#" target="_blank">
+                              <i className="fab fa-facebook-f" />
+                            </a>
+                          </li>
+                          <li>
+                            <a href="#" target="_blank">
+                              <i className="fab fa-twitter" />
+                            </a>
+                          </li>
+                          <li>
+                            <a href="#" target="_blank">
+                              <i className="fab fa-google-plus-g" />
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="single-team">
+                    <div className="img">
+                      <img src="img/home1/Team4.jpg" alt="" />
+                      <div className="content">
+                        <span className="default">
+                          <i className="flaticon-network" />
+                        </span>
+                        <ul className="social">
+                          <li>
+                            <a href="#" target="_blank">
+                              <i className="fab fa-facebook-f" />
+                            </a>
+                          </li>
+                          <li>
+                            <a href="#" target="_blank">
+                              <i className="fab fa-twitter" />
+                            </a>
+                          </li>
+                          <li>
+                            <a href="#" target="_blank">
+                              <i className="fab fa-google-plus-g" />
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* team-area-end */}
+        {/* need-consultant-area-start */}
+        <div className="need-consultant-area bg-with-black">
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-8 offset-lg-2 col-md-12 col-sm-12 col-12">
+                <div className="need-consultant">
+                  <h2 className="title">Need a Consultant?</h2>
+                  <p className="text">
+                    Looking fo a Business Plan Consultant. Contact some of our Expert
+                    or our Agent, We are hear to help you out.
+                  </p>
+                 
+                  <Link className="contact" as="Link" to="/Contact">
+                    Contact Us
+                  </Link> 
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* need-consultant-area-end */}
+        {/* pricing-area-start */}
+        <div className="pricing-area">
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-sm-12 col-12">
+                <div className="section-title">
+                  <h6>Packages</h6>
+                  <h2>Our Pricing Plans</h2>
+                  <p>
+                    There are many variations of passages of Lorem Ipsum available but
+                    the majority have suffered alteration in some form by injected
+                    humour or randomised words which even slightly believable.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-lg-4 offset-lg-0 col-md-6 offset-md-0 col-sm-8 offset-sm-2 col-12">
+                <div className="single-pricing">
+                  <div className="top">
+                    <h2 className="name">Basic</h2>
+                    <h5 className="type">Consulting Pack</h5>
+                  </div>
+                  <div className="price">
+                    <h2 className="tag">
+                      <span>Rs</span>3500
+                    </h2>
+                  </div>
+                  <div className="bottom">
+                    <ul className="feature">
+                      <li>Only Simple Machine</li>
+                      <li>One Solar Cable</li>
+                      <li>One Battery Cable</li>
+                      <li>One Siren</li>
+                    </ul>
+                    <div className="buy">
+                      <a className="button" href="#">
+                        Buy this Plan
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="col-lg-4 offset-lg-0 col-md-6 offset-md-0 col-sm-8 offset-sm-2 col-12">
+                <div className="single-pricing active">
+                  <div className="top">
+                    <p className="popular">Popular Pack</p>
+                    <h2 className="name">Standard</h2>
+                    <h5 className="type">Consulting Pack</h5>
+                  </div>
+                  <div className="price">
+                    <h2 className="tag">
+                      <span>Rs</span>8000
+                    </h2>
+                  </div>
+                  <div className="bottom">
+                    <ul className="feature">
+                      <li>Full Business Analyzing</li>
+                      <li>Next Generation Accounting</li>
+                      <li>Online staff training sessions</li>
+                      <li>Business Idea Ready</li>
+                    </ul>
+                    <div className="buy">
+                      <a className="button" href="#">
+                        Buy this Plan
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="col-lg-4 offset-lg-0 col-md-6 offset-md-0 col-sm-8 offset-sm-2 col-12">
+                <div className="single-pricing">
+                  <div className="top">
+                    <h2 className="name">Complete</h2>
+                    <h5 className="type">Consulting Pack</h5>
+                  </div>
+                  <div className="price">
+                    <h2 className="tag">
+                      <span>Rs</span>6000
+                    </h2>
+                  </div>
+                  <div className="bottom">
+                    <ul className="feature">
+                      <li>Digital Transformation</li>
+                      <li>Supply Chain Optimization</li>
+                      <li>Management + People Strategy</li>
+                      <li>Business Idea Ready</li>
+                    </ul>
+                    <div className="buy">
+                      <a className="button" href="#">
+                        Buy this Plan
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* pricing-area-end */}
+        {/* contact-details-area-start */}
+        <div className="page-cda contact-details-area">
+          <div className="container">
+            <div className="row">
+              <div className="col-12">
+                <div className="all-contact-details">
+                  <div className="row">
+                    <div className="col-lg-4 col-sm-6 col-12">
+                      <div className="single-contact-details">
+                        <div className="icon">
+                          <span className="flaticon-placeholder" />
+                        </div>
+                        <h4 className="title">Our Address</h4>
+                        <p className="desc">Level 13, 2 Elizabeth St,</p>
+                        <p className="desc">Melbourne, Victoria 3000</p>
+                        <a
+                          className="link"
+                          href="https://www.google.com.bd/maps/@40.703949,-74.0025883,12.71z?hl=bn"
+                          target="_blank"
+                        >
+                          Directions
+                        </a>
+                      </div>
+                    </div>
+                    <div className="col-lg-4 col-sm-6 col-12">
+                      <div className="single-contact-details">
+                        <div className="icon">
+                          <span className="flaticon-message" />
+                        </div>
+                        <h4 className="title">Email Address</h4>
+                        <a className="desc" href="mailto:Support@My.website.com">
+                          patoliyaarpit70@gmail.com
+                        </a>
+                        <a className="desc" href="tel:+00-015-152-1002">
+                          Phone:  +91 93168-68577
+                        </a>
+                        <a
+                          className="link"
+                          href="mailto:Support@My.website.com"
+                          target="_blank"
+                        >
+                          Send a Message
+                        </a>
+                      </div>
+                    </div>
+                    <div className="col-lg-4 col-sm-12 col-12">
+                      <div className="single-contact-details">
+                        <div className="icon">
+                          <span className="flaticon-group" />
+                        </div>
+                        <h4 className="title">Our Support</h4>
+                        <a className="desc" href="tel:+00-015-152-1002">
+                          Phone: +91 93168-68577
+                        </a>
+                        <a className="desc" href="fax:+358.555.1234567">
+                          Fax: +01-215-152-0020
+                        </a>
+                        <a className="link" href="#" target="_blank">
+                          Open a Ticket
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* contact-details-area-end */}
+        {/* map-start */}
+        <div className="map-area">
+          <div className="gmap">
+            <div id="googleMap" />
+          </div>
+        </div>
+        {/* map-end */}
+        {/* footer-start */}
+        <footer>
+          <div className="footer-top-area">
+            <div className="container">
+              <div className="row">
+                <div className="col-lg-3 col-sm-6 col-12">
+                  <div className="fw-info footer-widget">
+                    <div className="flogo">
+                      <img src="img/home1/logo-2.png" alt="" />
+                    </div>
+                    <p className="text">
+                      There are many variations of the dummy passages of Lorem Ipsum
+                      dummy that an available but.
+                    </p>
+                    <div className="address">
+                      <h5>
+                        <span>
+                          <i className="fas fa-map-marker-alt" />
+                        </span>{" "}
+                        Address:
+                      </h5>
+                      <p>
+                        124 Schulist Parks Suite,
+                        <br />
+                        Washington, DC 20037, United States
+                      </p>
+                    </div>
+                    <ul className="social">
+                      <li>
+                        <a href="#" target="_blank">
+                          <i className="fab fa-facebook-f" />
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#" target="_blank">
+                          <i className="fab fa-twitter" />
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#" target="_blank">
+                          <i className="fab fa-google-plus-g" />
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#" target="_blank">
+                          <i className="fab fa-linkedin-in" />
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div className="col-lg-3 col-sm-6 col-12">
+                  <div className="fw-categories footer-widget">
+                    <h4 className="title">Categories</h4>
+                    <ul className="list">
+                      <li>
+                        <a href="05_service.html">
+                          <span>
+                            <i className="fas fa-long-arrow-alt-right" />
+                          </span>{" "}
+                          Services
+                        </a>
+                      </li>
+                      <li>
+                        <a href="07_case-study.html">
+                          <span>
+                            <i className="fas fa-long-arrow-alt-right" />
+                          </span>{" "}
+                          Case Studies
+                        </a>
+                      </li>
+                      <li>
+                        <a href="22_contact.html">
+                          <span>
+                            <i className="fas fa-long-arrow-alt-right" />
+                          </span>{" "}
+                          Online Support
+                        </a>
+                      </li>
+                      <li>
+                        <a href="08_case-details.html">
+                          <span>
+                            <i className="fas fa-long-arrow-alt-right" />
+                          </span>{" "}
+                          Business Solution
+                        </a>
+                      </li>
+                      <li>
+                        <a href="39_shortcode-accordion-tabs.html">
+                          <span>
+                            <i className="fas fa-long-arrow-alt-right" />
+                          </span>{" "}
+                          FAQs
+                        </a>
+                      </li>
+                      <li>
+                        <a href="04_about.html">
+                          <span>
+                            <i className="fas fa-long-arrow-alt-right" />
+                          </span>{" "}
+                          About Our Company
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div className="col-lg-3 col-sm-6 col-12">
+                  <div className="fw-insta footer-widget">
+                    <h4 className="title">Instagram Feed</h4>
+                    <ul className="insta">
+                      <li>
+                        <a href="#">
+                          <img src="img/home1/insta-1.jpg" alt="" />
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#">
+                          <img src="img/home1/insta-2.jpg" alt="" />
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#">
+                          <img src="img/home1/insta-3.jpg" alt="" />
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#">
+                          <img src="img/home1/insta-4.jpg" alt="" />
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#">
+                          <img src="img/home1/insta-5.jpg" alt="" />
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#">
+                          <img src="img/home1/insta-6.jpg" alt="" />
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#">
+                          <img src="img/home1/insta-7.jpg" alt="" />
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#">
+                          <img src="img/home1/insta-8.jpg" alt="" />
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#">
+                          <img src="img/home1/insta-9.jpg" alt="" />
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div className="col-lg-3 col-sm-6 col-12">
+                  <div className="fw-rpost footer-widget">
+                    <h4 className="title">Recent Posts</h4>
+                    <ul className="rpost">
+                      <li>
+                        <a href="21_blog-details.html">
+                          <span className="img">
+                            <img src="img/home1/recent-1.jpg" alt="" />
+                          </span>
+                          <span className="content">
+                            <span className="name">
+                              Set Goals And Make Them Possible
+                            </span>
+                            <span className="date">
+                              <span>
+                                <i className="far fa-clock" />
+                              </span>{" "}
+                              Feb 24, 2018
+                            </span>
+                          </span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="21_blog-details.html">
+                          <span className="img">
+                            <img src="img/home1/recent-2.jpg" alt="" />
+                          </span>
+                          <span className="content">
+                            <span className="name">
+                              Keep Exploring Every Part Of The World
+                            </span>
+                            <span className="date">
+                              <span>
+                                <i className="far fa-clock" />
+                              </span>{" "}
+                              Mar 19, 2018
+                            </span>
+                          </span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="21_blog-details.html">
+                          <span className="img">
+                            <img src="img/home1/recent-3.jpg" alt="" />
+                          </span>
+                          <span className="content">
+                            <span className="name">
+                              Modern City With Amazing Dark Blue Sea
+                            </span>
+                            <span className="date">
+                              <span>
+                                <i className="far fa-clock" />
+                              </span>{" "}
+                              May 07, 2018
+                            </span>
+                          </span>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="footer-bottom-area">
+            <div className="container">
+              <div className="row">
+                <div className="col-lg-6 col-sm-12 col-12">
+                  <div className="fba-left">
+                    <p>
+                      <a href="#">ConsultVita</a> © 2018. All Rights Reserved.
+                    </p>
+                  </div>
+                </div>
+                <div className="col-lg-6 col-sm-12 col-12">
+                  <div className="fba-right">
+                    <p>Design &amp; Developer I - Finger Team</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </footer>
+        {/* footer-end */}
+        {/* gmap-script */}
+        {/* gmap-script */}
+        {/* Scripts */}
+      </>
+
+    </div>
+  )
+}
+export default About;

@@ -1,0 +1,114 @@
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { schema1 } from "../Schema/Log";
+import { useFormik } from "formik";
+import { fadd } from "../redux/CartSlice";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+
+
+const Poppop = (props) => {
+  const dispatch = useDispatch();
+  const users = useSelector((state) => state.reg.reg);
+  const show = useSelector((state) => state.log.log);
+  // console.log(show);
+  const navigate = useNavigate();
+  // console.log(users);
+  const [data, setdata] = useState();
+  const Login = () => {
+    toast.success("Login Successfull", {
+      position: "top-center",
+    });
+  };
+
+  const initialValues = {
+    Email: "",
+    Password: "",
+  };
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues: initialValues,
+      validationSchema: schema1,
+      onSubmit: (values, { setSubmitting }) => {
+        const user = users.find((user) => user.Email === values.Email);
+
+        // console.log(user);
+
+        if (user && user.Password === values.Password) {
+          dispatch(fadd({ Email: values.Email, Password: values.Password }));
+       
+          props.pass(props.pass);
+          Login();
+         
+        } else {
+          alert("Incorrect email or password. Please try again.");
+        }
+        setSubmitting(false);
+      },
+    });
+
+  return (
+    <>
+     
+      <section className="modal-wrapper">
+       
+        <div className="model-container">
+          <button className="close" onClick={props.pass}>
+            {" "}
+            X
+          </button>
+          <h2>Login</h2>
+          <div>
+            <form onSubmit={handleSubmit}>
+              <div className="subcontainer">
+                <label>Email</label>
+                <input className="logininput"
+                  type="email"
+                  placeholder="Enter Email"
+                  id="Email"
+                  name="Email"
+                  onChange={handleChange}
+                  value={values.Email}
+                  onBlur={handleBlur}
+                ></input>
+                {errors.Email && touched.Email ? (
+                  <p className=" form-error">{errors.Email}</p>
+                ) : null}
+                <label>Password</label>
+                <input
+                  type="password"
+                  placeholder="Enter Password"
+                  id="Password"
+                  name="Password"
+                  onChange={handleChange}
+                  value={values.Password}
+                  onBlur={handleBlur}
+                ></input>
+                {errors.Password && touched.Password ? (
+                  <p className=" form-error">{errors.Password}</p>
+                ) : null}
+
+                <Link style={{display:"flex"}} onClick={props.pass3}>Forgot Password</Link>
+              </div>
+
+              <button type="submit" className="model-btn">
+                Login
+              </button>
+            </form>
+          </div>
+          <p className="text-center text-muted mt-5 mb-0">
+            Have already an account?{" "}
+            <Link as={Link} onClick={props.pass2} className="link-danger">
+              Register
+            </Link>
+          </p>
+        </div>
+      </section>
+    </>
+  );
+};
+
+export default Poppop;

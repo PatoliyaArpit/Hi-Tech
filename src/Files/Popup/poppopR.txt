@@ -1,0 +1,149 @@
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { schema1 } from "../Schema/Log";
+import { useFormik } from "formik";
+import { add, fadd } from "../redux/CartSlice";
+import { schema } from "../Schema/RegisterCheck";
+import axios from "axios";
+
+const PoppopR = (props) => {
+  const dispatch = useDispatch();
+  const show = useSelector((state) => state.reg.reg);
+  // console.log(show);
+
+  console.log(show.length);
+
+  
+  const initialValues = {
+    Name: "",
+    Email: "",
+    Contact: "",
+    Password: "",
+  };
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues: initialValues,
+      validationSchema: schema,
+      onSubmit: (values, { setSubmitting }) => {
+        // console.log(values.Email);
+        const emailMatch = show.map((val) => val === null );
+        
+
+        if (show.length===0) {
+          dispatch(add(values));
+          setSubmitting(true);
+          props.pass(props.pass);
+          console.log(values)
+          axios({
+            method: "post",
+            url: "http://localhost/Register.php",
+            data: values,
+            headers: { "Content-Type": "multipart/form-data" },
+          }).then((res) => {
+            // console.log("Result", res);
+          
+            // alert("Record Inserted Successfully");
+          });
+        }
+        else if(show.some((val)=>val.Email!==values.Email)){
+          dispatch(add(values));
+          props.pass(props.pass);
+          setSubmitting(true);
+          
+        } else {
+          alert("this Email in Allredy exist ");
+        }
+      
+
+
+        
+      },
+    });
+
+  return (
+    <>
+      <section className="modal-wrapper">
+        <div className="model-container">
+          <button className="close" onClick={props.pass2}>
+            {" "}
+            X
+          </button>
+          <h2>Register</h2>
+          <div>
+            <form onSubmit={handleSubmit}>
+              <div className="subcontainer">
+                <label>Name</label>
+                <input
+                  type="text"
+                  placeholder="Enter Email"
+                  id="Name"
+                  name="Name"
+                  onChange={handleChange}
+                  value={values.Name}
+                  onBlur={handleBlur}
+                ></input>
+                {errors.Name && touched.Name ? (
+                  <p className=" form-error">{errors.Name}</p>
+                ) : null}
+                <label>Email</label>
+                <input
+                  type="email"
+                  placeholder="Enter Email"
+                  id="Email"
+                  name="Email"
+                  onChange={handleChange}
+                  value={values.Email}
+                  onBlur={handleBlur}
+                ></input>
+                {errors.Email && touched.Email ? (
+                  <p className=" form-error">{errors.Email}</p>
+                ) : null}
+                <label>Contact</label>
+                <input
+                  type="contact"
+                  placeholder="Enter Password"
+                  id="Contact"
+                  name="Contact"
+                  onChange={handleChange}
+                  value={values.Contact}
+                  onBlur={handleBlur}
+                ></input>
+                {errors.Contact && touched.Contact ? (
+                  <p className=" form-error">{errors.Contact}</p>
+                ) : null}
+
+                <label>Password</label>
+                <input
+                  type="password"
+                  placeholder="Enter Password"
+                  id="Password"
+                  name="Password"
+                  onChange={handleChange}
+                  value={values.Password}
+                  onBlur={handleBlur}
+                ></input>
+                {errors.Password && touched.Password ? (
+                  <p className=" form-error">{errors.Password}</p>
+                ) : null}
+              </div>
+
+              <button type="submit" className="model-btn">
+                Register
+              </button>
+            </form>
+          </div>
+          <p className="text-center text-muted mt-5 mb-0">
+            Have already an account?{" "}
+            <Link as={Link} onClick={props.pass} className="link-danger">
+              Login
+            </Link>
+          </p>
+        </div>
+      </section>
+    </>
+  );
+};
+
+export default PoppopR;
