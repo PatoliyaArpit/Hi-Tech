@@ -38,13 +38,11 @@ function Home(props) {
   const [valueaccessories, setvalueaccessories] = useState(" ");
 
   const navigate = useNavigate();
-
   
   const dispatch = useDispatch();
   const cartitem = useSelector((state) => state.cart.cart);
   const LoginUser = useSelector((state) => state.log.log);
   const LoginCart = useSelector((state) => state.cart1.cart1);
-  // console.log(Logindata)
 
   useEffect(() => {
     if (LoginUser.length === 0) {
@@ -66,7 +64,6 @@ function Home(props) {
         setFinal(cartitem);
       } else {
         setFinal(Finalcart);
-        // dispatch(filterdata(Final));
       }
     }
   }, [cartdata, LoginId]);
@@ -84,7 +81,6 @@ function Home(props) {
     }
     setvalueEnergizer(Energizerbuttontoggal);
   }, [LoginUser, Final]);
-console.log(Final,"FInal")
   let accessoriesbuttontoggal = [];
   useEffect(() => {
     if (LoginUser.length === 0) {
@@ -98,7 +94,6 @@ console.log(Final,"FInal")
     }
     setvalueaccessories(accessoriesbuttontoggal);
   }, [LoginUser, Final]);
-console.log("asso",valueaccessories)
   const handleClick = (imgUrl) => {
     localStorage.setItem("Img", imgUrl.Img);
     localStorage.setItem("title", imgUrl.Title);

@@ -16,7 +16,6 @@ const Header = (props) => {
   const [activeDropdown, setActiveDropdown] = useState(null);
   const cartitem = useSelector((state) => state.cart.cart);
   const UserLogin = useSelector((state) => state.log.log);
-  console.log('UserLogin', UserLogin)
   const show = useSelector((state) => state.reg.reg);
   const LoginCart = useSelector((state) => state.cart1.cart1);
   const [data, setdata] = useState("");
@@ -26,7 +25,6 @@ const Header = (props) => {
       setdata(show[0].Name);
     }
   }, [show]);
-  
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -43,7 +41,7 @@ const Header = (props) => {
   const [Logindata, setLogindata] = useState([]);
   const [LoginId, setLoginId] = useState([]);
   const [Final, setFinal] = useState([]);
-  
+
   useEffect(() => {
     UserLogin.map((val) => {
       setLoginId(val.Id);
@@ -59,12 +57,10 @@ const Header = (props) => {
       } else {
         setFinal(Finalcart);
         // call1();
-
-
       }
     }
   }, [cartdata, LoginId]);
-  
+  console.log(cartdata);
 
   const btn = () => {
     setpop(false);
@@ -101,25 +97,18 @@ const Header = (props) => {
     setpop(true);
   };
 
-  // useEffect(() => {
-  //   final.length === 0 &&
-  //     setTimeout(() => {
-  //       setpop(true);
-  //     }, 11000);
-  // }, []);
   const clickup = () => {
     window.scroll(0, 0);
   };
 
   const call2 = () => {
-    fetch("http://localhost/Loginshow.php") 
+    fetch("http://localhost/Loginshow.php")
       .then((res) => {
         return res.json();
       })
       .then((result) => {
         setLogindata(result);
-        
-        
+        call1();
       });
   };
 
@@ -138,8 +127,6 @@ const Header = (props) => {
   useEffect(() => {
     call1();
   }, []);
-
-  
 
   return (
     <>
@@ -205,7 +192,7 @@ const Header = (props) => {
                   <div className="ap-phone">
                     <h4
                       className="phone"
-                      style={{ fontFamily:"monospace", fontSize: "1.5rem" }}
+                      style={{ fontFamily: "monospace", fontSize: "1.5rem" }}
                     >
                       <span>
                         <i className="fas fa-phone" />
@@ -259,8 +246,6 @@ const Header = (props) => {
               <div className="col-lg-7 offset-lg-0 col-md-6 offset-md-0 col-sm-10 offset-sm-0 col-12 allmenu">
                 <div className="menu">
                   <nav id="mobile_menu_active">
-                   
-
                     <ul
                       style={{ margin: "0 20% 0 0 " }}
                       className={`responcive ${menuOpen ? "open" : ""}`}
@@ -417,7 +402,6 @@ const Header = (props) => {
                 className="col-lg-3 col-sm-8 col-12 mb-3"
                 style={{ margin: "0 0 0 0  " }}
               >
-                
                 <div className="search-consultant">
                   <div
                     className="sc-search"
@@ -426,15 +410,12 @@ const Header = (props) => {
                       gridTemplateColumns: "auto auto auto auto",
                     }}
                   >
-                     <Link
+                    <Link
                       className="res"
-                      style={{margin:"8px 0 0 -30px"}}
+                      style={{ margin: "8px 0 0 -30px" }}
                       onClick={toggleMenu}
                     >
-                      <i
-                        className="fa-solid fa-bars text-gray-600"
-                       
-                      ></i>
+                      <i className="fa-solid fa-bars text-gray-600"></i>
                     </Link>
                     <span
                       data-toggle="modal"
