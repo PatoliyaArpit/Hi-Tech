@@ -26,17 +26,16 @@ function Checkout() {
   const [refresh, setRefresh] = useState(false);
 
   // Fetch cart data from server
-  const fetchCartData = () => {
-   fetch("http://localhost/cartshow.php")
-   .then((res)=>{
-    return res.json();
-   })
-   .then((result)=>{
-    setcartdata(result);
-   
-   })
-  };
 
+  console.log(cartdata, "cartdata");
+  const fetchCartData = () => {
+    fetch("http://localhost/cartshow.php")
+      .then((response) => response.json())
+      .then((data) => {
+        setcartdata(data);
+        alert("callfetch");
+      });
+  };
   useEffect(() => {
     fetchCartData();
   }, []);
@@ -49,6 +48,7 @@ function Checkout() {
     }
   }, [UserLogin]);
 
+  // Update Final cart items based on LoginId and cartItems
   useEffect(() => {
     if (LoginId !== null) {
       const finalCart = cartdata.filter((item) => item.UserId === LoginId);
@@ -70,13 +70,13 @@ function Checkout() {
     // fetchCartData();
   }, [Final]);
 
+  // Increase quantity of cart items
   const increase = (itemId) => {
     const updatedCartItems = cartItems.map((item) =>
       item.Id === itemId ? { ...item, quantity: item.quantity + 1 } : item
     );
     dispatch(update(updatedCartItems));
   };
-
   const decrease = (itemId) => {
     const updatedCartItems = cartItems.map((item) =>
       item.Id === itemId && item.quantity > 1
@@ -86,28 +86,33 @@ function Checkout() {
     dispatch(update(updatedCartItems));
   };
 
+  // Set `FinalP` in localStorage and dispatch pay action
   const local = () => {
     localStorage.setItem("Finalp", FinalP);
     dispatch(pay(FinalP));
   };
 
+  // Navigate back to home page
   const returnHome = () => {
     navigate("/");
   };
 
+  // Handle item deletion
+
   const handleincrease = (data) => {
-    axios.post("http://localhost/Increcart.php", data, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    }).then((res) => {
-      fetchCartData();
-    }).catch((error) => {
-      console.error("There was an error increasing the quantity!", error);
-    });
+    axios
+      .post("http://localhost/Increcart.php", data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        console.log("Result", res.data);
+        fetchCartData();
+      });
   };
 
- const handledecrease = (data) => {
+  const handledecrease = (data) => {
     axios
       .post("http://localhost/Decrecart.php", data, {
         headers: {
@@ -115,25 +120,27 @@ function Checkout() {
         },
       })
       .then((res) => {
-       
+        console.log("Result", res.data);
         fetchCartData();
       });
    
   };
-
   const handleDelete = (data) => {
-    axios.post("http://localhost/deletecart.php", data, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    }).then((res) => {
-      fetchCartData();
-      fetchCartData();
-      setcartdata((prevData) => prevData.filter((item) => item.Id !== data.Id));
-      setRefresh(!refresh);
-    }).catch((error) => {
-      console.error("There was an error deleting the item!", error);
-    });
+    axios
+      .request({
+        method: "post",
+        url: "http://localhost/deletecart.php",
+        data: data,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        fetchCartData();
+        console.log("Result", data);
+        setRefresh(true);
+      })
+     
   };
   // useEffect(() => {
   //   handleDelete();
@@ -207,7 +214,6 @@ function Checkout() {
                         </div>
 
                         {Final.map((item) => {
-                          
                           return (
                             <div className="card mb-3" key={item.Id}>
                               <div className="card-body">

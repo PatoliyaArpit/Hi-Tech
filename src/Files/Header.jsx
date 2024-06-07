@@ -12,12 +12,13 @@ import PoppopEmail from "./Popup/PoppopEmail";
 import PoppopNewPass from "./Popup/PoppopNewPass";
 
 const Header = (props) => {
+ 
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const cartitem = useSelector((state) => state.cart.cart);
   const UserLogin = useSelector((state) => state.log.log);
   const show = useSelector((state) => state.reg.reg);
-  const LoginCart = useSelector((state) => state.cart1.cart1);
+  
   const [data, setdata] = useState("");
 
   useEffect(() => {
@@ -38,10 +39,8 @@ const Header = (props) => {
   const [popEmail, setpopEmail] = useState(false);
   const [popNewp, setpopNewp] = useState(false);
   const [cartdata, setcartdata] = useState([]);
-  const [Logindata, setLogindata] = useState([]);
   const [LoginId, setLoginId] = useState([]);
   const [Final, setFinal] = useState([]);
-
   useEffect(() => {
     UserLogin.map((val) => {
       setLoginId(val.Id);
@@ -60,11 +59,10 @@ const Header = (props) => {
       }
     }
   }, [cartdata, LoginId]);
-  console.log(cartdata);
+  
 
   const btn = () => {
     setpop(false);
-    call2();
     call1();
   };
   const btnr = () => {
@@ -100,21 +98,7 @@ const Header = (props) => {
   const clickup = () => {
     window.scroll(0, 0);
   };
-
-  const call2 = () => {
-    fetch("http://localhost/Loginshow.php")
-      .then((res) => {
-        return res.json();
-      })
-      .then((result) => {
-        setLogindata(result);
-        call1();
-      });
-  };
-
-  useEffect(() => {
-    call2();
-  }, []);
+  
   const call1 = () => {
     fetch("http://localhost/cartshow.php")
       .then((res) => {
@@ -126,7 +110,7 @@ const Header = (props) => {
   };
   useEffect(() => {
     call1();
-  }, []);
+  }, [props]);
 
   return (
     <>
@@ -461,7 +445,7 @@ const Header = (props) => {
                       // }}
                     >
                       <div className="Login">
-                        {Logindata.length === 0 ? (
+                        {UserLogin.length === 0 ? (
                           <Link
                             as={Link}
                             onClick={() => setpop(true)}

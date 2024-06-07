@@ -12,8 +12,8 @@ const Profile = () => {
   const navigate = useNavigate();
   const profile = useSelector((state) => state.log.log);
 
-  const cart = useSelector((state) => state.cart.cart);
-  const [Registerdata, setRegisterdata] = useState([]);
+  
+  
   const [cartdata, setcartdata] = useState([]);
   const [LoginId, setLoginId] = useState([]);
   const [Final, setFinal] = useState([]);
@@ -28,8 +28,7 @@ const Profile = () => {
     });
   };
   const handleLogout = () => {
-    // Perform logout actions
-    // alert("Account Hase Been Logout")
+    
     notify();
 
     setTimeout(() => {
@@ -37,7 +36,7 @@ const Profile = () => {
       dispatch(clearCart());
       window.localStorage.removeItem("log");
       dispatch(logcleare());
-      dispatch(ClearLogincart());
+    
       axios.post(
         "http://localhost/LoginCleare.php",
         {},
@@ -49,18 +48,7 @@ const Profile = () => {
       );
     }, 1500);
   };
-  const call1 = () => {
-    fetch("http://localhost/Registershow.php")
-      .then((res) => {
-        return res.json();
-      })
-      .then((result) => {
-        setRegisterdata(result);
-      });
-  };
-  useEffect(() => {
-    call1();
-  }, []);
+ 
   const call2 = () => {
     fetch("http://localhost/cartshow.php")
       .then((val) => {
@@ -96,7 +84,7 @@ const Profile = () => {
   useEffect(() => {
     call3();
   }, []);
-  // console.log(Profiledata);
+ 
   useEffect(() => {
     const filter = Profiledata.find((val) => val.Id === LoginId);
     setFilteruser(filter);
@@ -108,8 +96,7 @@ const Profile = () => {
       setProfilepic(FilterUser.Profile);
     }
   }, [FilterUser]);
-  // console.log(FilterUser);
-  // console.log(profile);
+  
   const btn = () => {
     setpopop(false);
   };

@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   cart: [],
-  cart1: JSON.parse(localStorage.getItem("cart1")) || [],
+  
   detail: [],
   reg: JSON.parse(localStorage.getItem("reg")) || [],
   log: JSON.parse(localStorage.getItem("log")) || [],
@@ -19,10 +19,7 @@ const savedCart = localStorage.getItem("cart");
 if (savedCart) {
   initialState.cart = JSON.parse(savedCart);
 }
-// const savedCart1 = localStorage.getItem("cart1");
-// if (savedCart1) {
-//   initialState.cart1 = JSON.parse(savedCart1);
-// }
+
 export const cartSlice = createSlice({
   name: "cart",
   initialState,
@@ -42,26 +39,9 @@ export const cartSlice = createSlice({
       console.log(action);
       localStorage.setItem("cart", JSON.stringify(state.cart));
     },
-    Logincart: (state, action) => {
-      const itemId = action.payload.Id;
-      const existingItemIndex = state.cart1.findIndex(
-        (item) => item.ItemId === itemId
-      );
-
-      if (existingItemIndex !== -1) {
-        state.cart1[existingItemIndex].quantity += 1;
-      } else {
-        state.cart1.push({ ...action.payload, quantity: 1 });
-      }
-      // Save cart to local storage
-      console.log(action);
-      localStorage.setItem("cart1", JSON.stringify(state.cart1));
-    },
    
-    ClearLogincart: (state, action) => {
-      state.cart1 = [];
-      localStorage.removeItem("cart1");
-    },
+   
+  
 
     removecart: (state, action) => {
       state.cart = state.cart.filter((x) => x.Id !== action.payload.Id);
@@ -188,8 +168,6 @@ export const {
   updatepassword,
   cleareotp,
   updatelog,
-  Logincart,
-  ClearLogincart,
   filterdata
   
  

@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { schema1 } from "../Schema/Log";
 import { useFormik } from "formik";
-import { Logincart, clearCart, fadd } from "../redux/CartSlice";
+import {clearCart, fadd } from "../redux/CartSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
@@ -14,9 +14,7 @@ const Poppop = (props) => {
   const users = useSelector((state) => state.reg.reg);
   const show = useSelector((state) => state.log.log);
 
-  // console.log(show);
   const navigate = useNavigate();
-  // console.log(users);
   const [data, setdata] = useState();
   const Login = () => {
     toast.success("Login Successfull", {
@@ -83,7 +81,7 @@ const Poppop = (props) => {
               navigate("/Home");
               dispatch(fadd(Register));
             });
-            dispatch(Logincart());
+           
           }
 
           

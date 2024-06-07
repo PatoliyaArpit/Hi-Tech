@@ -42,7 +42,7 @@ function Home(props) {
   const dispatch = useDispatch();
   const cartitem = useSelector((state) => state.cart.cart);
   const LoginUser = useSelector((state) => state.log.log);
-  const LoginCart = useSelector((state) => state.cart1.cart1);
+ 
 
   useEffect(() => {
     if (LoginUser.length === 0) {
@@ -104,6 +104,10 @@ function Home(props) {
     localStorage.setItem("Brand", imgUrl.Brand);
     localStorage.setItem("Material", imgUrl.Material);
     localStorage.setItem("Id", imgUrl.Id);
+    localStorage.setItem("ProductType", imgUrl.ProductType);
+    localStorage.setItem("LoginId", LoginId);
+   
+  
   };
   useEffect(() => {
     call();
@@ -209,9 +213,9 @@ function Home(props) {
           data: values,
           headers: { "Content-Type": "multipart/form-data" },
         }).then((res) => {
-          // console.log("Result", res);
+         
           SendMsg();
-          // alert("Record Inserted Successfully");
+          ;
         });
         // console.log(values)
         emailjs.sendForm(
@@ -245,8 +249,7 @@ function Home(props) {
         },
       })
       .then((res) => {
-        // console.log("Result", res);
-        // alert("Record Inserted Successfully");
+      
         call5();
       });
   };
@@ -261,8 +264,7 @@ function Home(props) {
         },
       })
       .then((res) => {
-        // console.log("Result", res);
-        // alert("Record Inserted Successfully");
+       
         call5();
       });
     // dispatch(LoginCart({data}))

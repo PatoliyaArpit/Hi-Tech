@@ -7,9 +7,8 @@ import { updatelog } from "../redux/CartSlice";
 
 const Editpop = (props) => {
   const [LoginId, setLoginId] = useState([]);
-  const [LoginName, SetLoginName] = useState("");
-  const [LoginContact, setLoginContact] = useState("");
-  //   const [Final, setFinal] = useState([]);
+  
+  
   const dispetch = useDispatch();
   const LoginUser = useSelector((state) => state.log.log);
   useEffect(() => {

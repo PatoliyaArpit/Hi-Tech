@@ -3,16 +3,15 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import Header from "./Header";
 import Footer from "./Footer";
+import $ from 'jquery';
+
 function Gallary() {
   
   const [data, setdata] = useState([]);
-  const cartitem = useSelector((state) => state.cart.cart);
-
   useEffect(() => {
     call();
   }, [])
-
-
+  
   const call = () => {
     fetch("http://localhost/masterg.php").then((result) => {
       return result.json()
@@ -57,21 +56,8 @@ function Gallary() {
             <div className="row">
               <div className="col-12">
 
-                <h2>selected pictur</h2>
-                {/* <div className="gallery-menu">
-                  <button className="button checked" data-filter="*">
-                    All Cases
-                  </button>
-                  <button className="button" data-filter=".finance">
-                    Finance
-                  </button>
-                  <button className="button" data-filter=".economy">
-                    Economy
-                  </button>
-                  <button className="button" data-filter=".money">
-                    Money
-                  </button>
-                </div> */}
+                <h2>Gallery </h2>
+               
               </div>
             </div>
 

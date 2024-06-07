@@ -11,7 +11,6 @@ const store=configureStore({
         plan:CartSlice,
         check:CartSlice,
         Otp:CartSlice,
-        cart1:CartSlice,
         filtercart:CartSlice
     }
 })
