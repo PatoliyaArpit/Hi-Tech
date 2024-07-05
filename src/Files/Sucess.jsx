@@ -1,29 +1,85 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import {  useDispatch } from "react-redux";
+import {  useDispatch, useSelector } from "react-redux";
 import { clearCart } from "./redux/CartSlice";
 import axios from "axios";
 
 const Sucess = () => {
   const navigat = useNavigate();
-
   const dispetch = useDispatch();
 
-  setTimeout(() => {
-    window.localStorage.removeItem("cart");
-    navigat("/");
-    dispetch(clearCart());
-  }, 3000);
+  const UserLogin = useSelector((state) => state.log.log);
 
-  axios
-  .post("http://localhost/Cartallclear.php", {
-   
-  }, {
-    headers: {
-      "Content-Type": "multipart/form-data"
+  const [cartdata, setcartdata] = useState([]);
+  const [LoginId, setLoginId] = useState([]);
+  const [Final, setFinal] = useState([]);
+
+  useEffect(() => {
+    UserLogin.map((val) => {
+      setLoginId(val.Id);
+    });
+  }, []);
+
+  
+
+  useEffect(() => {
+    if (LoginId !== null) {
+      const Finalcart = cartdata.filter((val) => val.UserId === LoginId);
+      const MergeTitle = Finalcart.map(item => item.Title).join(', '); 
+      setFinal(MergeTitle);
     }
-  })
+  }, [cartdata, LoginId]);
+
+  console.log(Final)
+  useEffect(() => {
+    if (LoginId !== null && Final !== "") {
+      axios.request({
+        method: "post",
+        url: "http://localhost/Order.php",
+        data: { UserId: LoginId, Product: Final },
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        // Redirect to another page upon successful request
+      
+      })
+      .catch((error) => {
+        console.error("There was an error!", error);
+      });
+    }
+  }, [LoginId, Final]);
+  
+  
+ const call1 = () => {
+    fetch("http://localhost/cartshow.php")
+      .then((res) => {
+        return res.json();
+      })
+      .then((result) => {
+        setcartdata(result);
+      });
+  };
+  useEffect(() => {
+    call1();
+  }, []); 
+
+//   setTimeout(() => {
+//     window.localStorage.removeItem("cart");
+//     navigat("/");
+//     dispetch(clearCart());
+//   }, 3000);
+
+//   axios
+//   .post("http://localhost/Cartallclear.php", {
+   
+//   }, {
+//     headers: {
+//       "Content-Type": "multipart/form-data"
+//     }
+//   })
  
 
   return (

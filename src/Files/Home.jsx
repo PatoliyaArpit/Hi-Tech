@@ -202,7 +202,7 @@ function Home(props) {
     call6();
   }, []);
 
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit,resetForm } =
     useFormik({
       initialValues: initialValues,
       validationSchema: signup,
@@ -215,6 +215,9 @@ function Home(props) {
         }).then((res) => {
          
           SendMsg();
+          setTimeout(() => {
+            resetForm();
+          }, 1000);
           ;
         });
         // console.log(values)
@@ -483,7 +486,7 @@ function Home(props) {
                               style={{
                                 textDecoration: "line-through",
                                 fontSize: "18px",
-                                margin: "0px 0 0 -50%",
+                                margin: "3% 0 0 -50%",
                                 opacity: "0.5",
                               }}
                             >
@@ -608,7 +611,7 @@ function Home(props) {
                               style={{
                                 textDecoration: "line-through",
                                 fontSize: "18px",
-                                margin: "3px 0 0 -70%",
+                                margin: "3% 0 0 -70%",
                                 opacity: "0.5",
                               }}
                             >
@@ -942,144 +945,7 @@ function Home(props) {
 
           <Pack></Pack>
 
-          {/* testimonial-area-start */}
-          {/* <div className="testimonial-area bg-with-black">
-            <div className="container">
-              <div className="row">
-                <div className="col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-sm-12 col-12">
-                  <div className="section-title">
-                    <h6>With Respect To Each Client</h6>
-
-                    <h2>We Appreciate Clients</h2>
-                  </div>
-                </div>
-              </div>
-              <div className="testimonial-carousel owl-carousel">
-                <div className="testimonial-box">
-                  <div className="content">
-                    <h2 className="title">“Great Service”</h2>
-                    <p className="text">
-                      There are many variations of passages of Lorem Ipsum
-                      available, but the majority is have to suffered alteration
-                      in some form by injected humour, or randomised words a
-                      which don't an look even slightly believable.
-                    </p>
-                  </div>
-                  <div className="author">
-                    <div className="img">
-                      <img src="img/home1/testi-author-1.jpg" alt="" />
-                    </div>
-                    <div className="details">
-                      <h4 className="name">John Nikcevic</h4>
-                      <p className="desg">Director</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="testimonial-box">
-                  <div className="content">
-                    <h2 className="title">“Helpful Advisors”</h2>
-                    <p className="text">
-                      There are many variations of passages of Lorem Ipsum
-                      available, but the majority is have to suffered alteration
-                      in some form by injected humour, or randomised words a
-                      which don't an look even slightly believable.
-                    </p>
-                  </div>
-                  <div className="author">
-                    <div className="img">
-                      <img src="img/home1/testi-author-2.jpg" alt="" />
-                    </div>
-                    <div className="details">
-                      <h4 className="name">Julia Renvoye</h4>
-                      <p className="desg">Engineer</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="testimonial-box">
-                  <div className="content">
-                    <h2 className="title">“Great Service”</h2>
-                    <p className="text">
-                      There are many variations of passages of Lorem Ipsum
-                      available, but the majority is have to suffered alteration
-                      in some form by injected humour, or randomised words a
-                      which don't an look even slightly believable.
-                    </p>
-                  </div>
-                  <div className="author">
-                    <div className="img">
-                      <img src="img/home1/testi-author-3.jpg" alt="" />
-                    </div>
-                    <div className="details">
-                      <h4 className="name">John Nikcevic</h4>
-                      <p className="desg">Director</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="testimonial-box">
-                  <div className="content">
-                    <h2 className="title">“Helpful Advisors”</h2>
-                    <p className="text">
-                      There are many variations of passages of Lorem Ipsum
-                      available, but the majority is have to suffered alteration
-                      in some form by injected humour, or randomised words a
-                      which don't an look even slightly believable.
-                    </p>
-                  </div>
-                  <div className="author">
-                    <div className="img">
-                      <img src="img/home1/testi-author-2.jpg" alt="" />
-                    </div>
-                    <div className="details">
-                      <h4 className="name">Julia Renvoye</h4>
-                      <p className="desg">Engineer</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="testimonial-box">
-                  <div className="content">
-                    <h2 className="title">“Great Service”</h2>
-                    <p className="text">
-                      There are many variations of passages of Lorem Ipsum
-                      available, but the majority is have to suffered alteration
-                      in some form by injected humour, or randomised words a
-                      which don't an look even slightly believable.
-                    </p>
-                  </div>
-                  <div className="author">
-                    <div className="img">
-                      <img src="img/home1/testi-author-1.jpg" alt="" />
-                    </div>
-                    <div className="details">
-                      <h4 className="name">John Nikcevic</h4>
-                      <p className="desg">Director</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="testimonial-box">
-                  <div className="content">
-                    <h2 className="title">“Helpful Advisors”</h2>
-                    <p className="text">
-                      There are many variations of passages of Lorem Ipsum
-                      available, but the majority is have to suffered alteration
-                      in some form by injected humour, or randomised words a
-                      which don't an look even slightly believable.
-                    </p>
-                  </div>
-                  <div className="author">
-                    <div className="img">
-                      <img src="img/home1/testi-author-3.jpg" alt="" />
-                    </div>
-                    <div className="details">
-                      <h4 className="name">Julia Renvoye</h4>
-                      <p className="desg">Engineer</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> */}
-
-          {/* contact-details-area-start */}
+         
 
           <div
             className="contact-details-area"
@@ -1359,7 +1225,8 @@ function Home(props) {
                     </form>
                   </div>
                 </div>
-                <div className="col-lg-6 col-12 d-flex flex-column justify-content-center  mt-lg-0">
+
+                 <div className="col-lg-6 col-12 d-flex flex-column justify-content-center  mt-lg-0 ">
                   <div className="sdsw-contact sd-sidebar-widget">
                     <h4 className="title">Contact Info</h4>
                     <div className="sdswc-info-box d-flex align-items-center mb-5">
@@ -1420,7 +1287,7 @@ function Home(props) {
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> 
               </div>
             </div>
           </div>

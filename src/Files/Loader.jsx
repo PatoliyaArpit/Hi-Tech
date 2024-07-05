@@ -5,13 +5,13 @@ const Loader = () => {
     <>
       <div
         className="spinner"
-        style={{
-          width: 44,
-          height: 44,
-          animation: "spinner-y0fdc1 2s infinite ease",
-          transformStyle: "preserve-3d",
-          margin:"25% 0 0 50%"
-        }}
+        // style={{
+        //   width: 44,
+        //   height: 44,
+        //   animation: "spinner-y0fdc1 2s infinite ease",
+        //   transformStyle: "preserve-3d",
+        //   margin:"25% 0 0 50%"
+        // }}
       >
         <div
           style={{

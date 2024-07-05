@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { json } from "react-router-dom";
 
 const initialState = {
   cart: [],
-  
   detail: [],
   reg: JSON.parse(localStorage.getItem("reg")) || [],
   log: JSON.parse(localStorage.getItem("log")) || [],
@@ -10,7 +10,10 @@ const initialState = {
   payment: [],
   plan: JSON.parse(localStorage.getItem("plan")) || [],
   Otp: [],
-  filtercart:[]
+  filtercart:[],
+  Address:JSON.parse(localStorage.getItem("Address")) || [],
+  Admincart:JSON.parse(localStorage.getItem("Admincart")) || [],
+  
  
 };
 
@@ -40,9 +43,6 @@ export const cartSlice = createSlice({
       localStorage.setItem("cart", JSON.stringify(state.cart));
     },
    
-   
-  
-
     removecart: (state, action) => {
       state.cart = state.cart.filter((x) => x.Id !== action.payload.Id);
       // Save cart to local storage
@@ -145,6 +145,19 @@ export const cartSlice = createSlice({
     filterdata:(state,action)=>{
       console.log(action);
       state.filtercart.push({...action.payload});
+    },
+    Addressselect:(state,action)=>{
+
+      state.Address = [{ ...action.payload }];
+      localStorage.setItem("Address",JSON.stringify(state.Address))
+    },
+    cleareAddress:(state,action)=>{
+      state.Address=[]
+    },
+    Adcart:(state,action)=>{
+      state.Admincart = [{ ...action.payload }];
+      localStorage.setItem("Admincart",JSON.stringify(state.Admincart))
+ 
     }
    
   },
@@ -162,13 +175,15 @@ export const {
   clearCart,
   plan,
   clearplan,
-  check1,
   logcleare,
   addotp,
   updatepassword,
   cleareotp,
   updatelog,
-  filterdata
+  filterdata,
+  Addressselect,
+  cleareAddress,
+  Adcart
   
  
 } = cartSlice.actions;

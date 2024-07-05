@@ -1032,9 +1032,9 @@ text-decoration: none;
   display: flex;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  left: 30%;
+  left: 20%;
   margin: auto;
-  min-width: 500px;
+  min-width: 270px;
   opacity: 0;
   padding: 8px;
   position: absolute;
@@ -1047,6 +1047,7 @@ text-decoration: none;
   transition: all 0.5s ease 0s;
   visibility: hidden;
 }
+
 
 .menu ul li:hover .mega-menu {
   opacity: 1;
@@ -4824,7 +4825,7 @@ text-decoration: none;
   background: #3fb698 none repeat scroll 0 0;
   padding: 26px 32px 30px;
   width: 500px;
-  height: 62%;
+  height: 60%;
   margin: -10% 0 0 10% ;
   
  
@@ -6153,7 +6154,7 @@ text-decoration: none;
   right: 0;
   width: 2px;
   height: 70%;
-  background-color: #aebcb9;
+  /* background-color: #aebcb9; */
 }
 
 .cd-headline.clip b {

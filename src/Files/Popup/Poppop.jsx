@@ -74,10 +74,10 @@ const Poppop = (props) => {
               headers: { "Content-Type": "multipart/form-data" },
             }).then((res) => {
               console.log(res);
-              setTimeout(() => {
+            
                 props.pass(props.pass);
                 call1()
-              },   2000);
+             
               navigate("/Home");
               dispatch(fadd(Register));
             });

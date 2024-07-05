@@ -57,7 +57,7 @@ const PoppopR = (props) => {
           });
 
           console.log("Result", response);
-          alert("Record Inserted Successfully");
+          alert("complete Register");
         } else {
           alert("This email already exists.");
         }

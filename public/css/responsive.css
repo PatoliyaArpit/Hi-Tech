@@ -2,6 +2,7 @@
 
   @media only screen and (min-width: 1368px) and (max-width: 1610px) {
     /*home1*/
+    
     .pss-box {
       width: 54%;
     }
@@ -24,7 +25,7 @@
 
   @media only screen and (min-width: 1201px) and (max-width: 1367px) {
     /*home1*/
-    
+  
     .pogoSlider--navBottom .pogoSlider-nav {
       bottom: 100px;
     }
@@ -64,6 +65,7 @@
   
   @media only screen and (min-width: 600px) and (max-width: 992px)
   {
+    
     .sdsw-contact{
       width: 500px;
       height: 300px;
@@ -90,7 +92,7 @@
   }
   @media only screen and (min-width: 992px) and (max-width: 1200px) {
     /*home1*/
-
+   
     .sdsw-contact{
       width: 500px;
       height: 62%px;
@@ -236,6 +238,7 @@
 
   @media only screen and (min-width: 768px) and (max-width: 992px) {
     /*home1*/
+ 
     .sc-consultant{
       margin: 0 0 10% 10%;
       float: right;
@@ -453,6 +456,8 @@
 
   @media only screen and (min-width: 481px) and (max-width: 767px) {
     /*home1*/
+
+   
     .sc-consultant{
       margin: 0 0 10% 20%;
       float: right;
@@ -681,7 +686,7 @@
     
   }
   @media only screen and (min-width: 240px) and (max-width: 575px) {
-
+    
     /*home1*/
     .sc-consultant{
       margin: 0 0 10% 0%;
@@ -1093,6 +1098,7 @@
 
   @media only screen and (min-width: 380px) and (max-width: 480px) {
     /*home1*/
+   
     .to-down {
       bottom: 12px;
     }
@@ -1128,4 +1134,6 @@
     .h4-slider-full-box {
       padding: 54px 0;
     }
+   
   }
+  

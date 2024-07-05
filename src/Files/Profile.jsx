@@ -100,6 +100,7 @@ const Profile = () => {
   const btn = () => {
     setpopop(false);
   };
+  console.log(profile,"profile")
 
   return (
     <>

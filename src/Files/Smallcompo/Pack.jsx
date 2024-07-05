@@ -27,6 +27,8 @@ const Pack = () => {
     
         localStorage.setItem("Title", item.Title);
         localStorage.setItem("Price", item.Price);
+        localStorage.setItem("PlanImg", item.PlanImg);
+        localStorage.setItem("quantity", item.quantity);
         localStorage.setItem("Img1", item.Img1);
         localStorage.setItem("Img2", item.Img2);
         localStorage.setItem("Img3", item.Img3);
@@ -44,8 +46,8 @@ const Pack = () => {
       <div className="row">
         <div className="col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-sm-12 col-12">
           <div className="section-title">
-            <h6>Packages</h6>
-            <h2>Our Pricing Plans</h2>
+            
+            <h2>Our Combo Pack</h2>
             <p>
               There are many variations of passages of Lorem Ipsum
               available but the majority have suffered alteration in

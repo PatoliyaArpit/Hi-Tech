@@ -111,6 +111,7 @@ const PDetails = () => {
       // Handle the response if needed
       // console.log("Result", res);
       // alert("Record Inserted Successfully");
+      call2()
     });
   };
 

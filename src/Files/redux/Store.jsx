@@ -11,7 +11,9 @@ const store=configureStore({
         plan:CartSlice,
         check:CartSlice,
         Otp:CartSlice,
-        filtercart:CartSlice
+        filtercart:CartSlice,
+        Address:CartSlice,
+        Admincart:CartSlice
     }
 })
 export default store

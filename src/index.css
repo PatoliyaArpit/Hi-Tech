@@ -212,7 +212,7 @@ code {
 
 .Whats{
   top: 80%;
-  left: 94%;
+  left: 95%;
   transform: translate(-50%,-50px);
   position: fixed;
   max-width: 20rem;
@@ -229,15 +229,12 @@ code {
  
 
 }
-.Whats img{
-  width: 150px;
-}
 .clicktoup{
   top: 90%;
-  left: 94%;
+  left: 95%;
   transform: translate(-50%,-50px);
   position: fixed;
-  /* max-width: 20rem; */
+  max-width: 20rem;
   max-height:50rem ;
   padding: 20px;
   border: 1px solid black;
@@ -250,6 +247,72 @@ code {
   border-radius: 50%;
   
 }
+@media only screen and (min-width: 200px) and (max-width: 425px) {
+  .Whats{
+    top: 79%;
+    left: 90%;
+    transform: translate(-50%,-50px);
+    position: fixed;
+    max-width: 20rem;
+    max-height:50rem ;
+    padding: 20px;
+    border-radius: 5px;
+    width:100px;
+    align-items: center;
+    justify-content: center;
+    z-index: 111;
+    border-radius: 50%;
+    /* background-color: rgba(255, 0, 0, 0.4); */
+    /* mix-blend-mode:multiply; */
+   
+  
+  }
+  .clicktoup{
+    top: 90%;
+    left: 90%;
+    transform: translate(-50%,-50px);
+    position: fixed;
+    max-height:50rem ;
+    padding: 20px;
+    border: 1px solid black;
+    width:10px;
+    height: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 111;
+    border-radius: 50%;
+    
+  }
+  .sdsw-contact {
+    background: #3fb698 none repeat scroll 0 0;
+    padding: 26px 32px 30px;
+    width: 80%;
+    height: 50vh;
+    margin: -10% 0 5% 10% ;
+    
+   
+  }
+  .spinner{
+    height: 44px;
+    width: 44px;
+    animation:spinner-y0fdc1 2s infinite ease;
+    margin:90% 0 0 50%;
+    transformStyle: preserve-3d;
+  }
+}
+.spinner{
+  height: 44px;
+  width: 44px;
+  animation:spinner-y0fdc1 2s infinite ease;
+  margin:25% 0 0 50%;
+  transformStyle: preserve-3d;
+
+}
+.Whats img{
+  width: 150px;
+}
+
 
 .clicktoup:hover{
   background: white;
@@ -554,4 +617,30 @@ p{
   
   }
 }
+.modal-wrapperSucc{
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  background-color: rgba(189, 189, 189, 1);
+  z-index: 111;
+}
+.model-containerSucc{
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%,-50px);
+  position: fixed;
+  max-width: 60rem;
+  max-height:50rem ;
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+/* styles.css */
+
 

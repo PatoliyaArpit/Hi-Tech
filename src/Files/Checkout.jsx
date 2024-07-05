@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { removecart, update, pay } from "./redux/CartSlice";
+import { removecart, update, pay, Adcart } from "./redux/CartSlice";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "./Header";
@@ -89,6 +89,7 @@ function Checkout() {
   const local = () => {
     localStorage.setItem("Finalp", FinalP);
     dispatch(pay(FinalP));
+    dispatch(Adcart({"Price":Price,"Finalp":FinalP,"quantity":Final.length,"Click":"Cart"}))
   };
 
   const returnHome = () => {
@@ -348,7 +349,7 @@ function Checkout() {
                               >
                                 <span> Total:{FinalP}</span>
                                 <span>
-                                  Checkout
+                                  Select Address
                                   <i className="fas fa-long-arrow-alt-right ms-2" />
                                 </span>
                               </Link>

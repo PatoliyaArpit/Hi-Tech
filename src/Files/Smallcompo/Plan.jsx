@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Footer from "../Footer";
 
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import { loadStripe } from "@stripe/stripe-js";
 import { useNavigate } from "react-router-dom";
 import Header from "../Header";
@@ -11,17 +11,20 @@ import PoppopEmail from "../Popup/PoppopEmail";
 import PoppopNewPass from "../Popup/PoppopNewPass";
 import Poppop from "../Popup/Poppop";
 import PoppopR from "../Popup/PoppopR";
+import { Adcart } from "../redux/CartSlice";
 
 const Plan = () => {
   const [Fprice, setFprice] = useState(0);
   const navigate = useNavigate();
-
+const dispetch=useDispatch();
   const show = useSelector((state) => state.plan.plan);
   console.log(show);
   const final = useSelector((state) => state.log.log);
 
   const Title = localStorage.getItem("Title");
   const Price = localStorage.getItem("Price");
+  const PlanImg = localStorage.getItem("PlanImg");
+  const quantity = localStorage.getItem("quantity");
   const Img1 = localStorage.getItem("Img1");
   const Img2 = localStorage.getItem("Img2");
   const Img3 = localStorage.getItem("Img3");
@@ -112,7 +115,10 @@ const Plan = () => {
     setpopNewp(false);
     setpop(true);
   };
-
+const MoveAddress=()=>{
+  dispetch(Adcart({"Price":Price,"Finalp":Fprice,"Click":"Plan","planImg":PlanImg,"Title":Title,"quantity":quantity}))
+  navigate("/Order")
+}
   return (
     <>
       <Header></Header>
@@ -348,9 +354,7 @@ const Plan = () => {
                             <button
                               type="button"
                               className="btn btn-info btn-block btn-lg"
-                              onClick={() => {
-                                makepay();
-                              }}
+                              onClick={() => {MoveAddress()}}
                             >
                               <Link
                                 to=""

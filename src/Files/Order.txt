@@ -1,0 +1,730 @@
+// import React, { useMemo, useState } from "react";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import Header from "./Header";
+import Footer from "./Footer";
+import { loadStripe } from "@stripe/stripe-js";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import Poppop from "./Popup/Poppop";
+import PoppopR from "./Popup/PoppopR";
+import PoppopEmail from "./Popup/PoppopEmail";
+import PoppopNewPass from "./Popup/PoppopNewPass";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Address } from "./Schema/Address";
+import { useFormik } from "formik";
+
+function Order(props) {
+  const navigate = useNavigate();
+  const dispetch = useDispatch();
+  const lastp = localStorage.getItem("Finalp");
+  console.log(lastp);
+  // const [cartdata,setcartdata]=useState([]);
+
+  const cartitem = useSelector((state) => state.cart.cart);
+  // console.log(cartitem);
+  const UserLogin = useSelector((state) => state.log.log);
+  // console.log(UserLogin.length);
+  const pay = useSelector((state) => state.payment.payment);
+
+  const [cartdata, setcartdata] = useState([]);
+  const [LoginId, setLoginId] = useState([]);
+  const [Final, setFinal] = useState([]);
+  // console.log("id",LoginId)
+  useEffect(() => {
+    UserLogin.map((val) => {
+      setLoginId(val.Id);
+    });
+  }, []);
+
+  useEffect(() => {
+    if (LoginId !== null) {
+      const Finalcart = cartdata.filter((val) => val.UserId === LoginId);
+      if (UserLogin.length === 0) {
+        setFinal(cartitem);
+      } else {
+        setFinal(Finalcart);
+      }
+    }
+  }, [cartdata, LoginId]);
+
+  const makePayment = async () => {
+    const stripe = await loadStripe(
+      "pk_test_51PFvkNSF0uRd81kXkvI0KPn46KKuVWmhdcqVisa6HQ5vccNvpo4TvtuRezoLzA7UtedphYGtxfzq15nx684mYOAw005Sply1iG"
+    );
+    const body = {
+      products: Final,
+    };
+    const headers = {
+      "Content-Type": "application/json",
+    };
+    const response = await fetch(
+      "http://localhost:8080/api/create-checkout-session",
+      {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify(body),
+      }
+    );
+    const session = await response.json();
+
+    const result = stripe.redirectToCheckout({
+      sessionId: session.id,
+    });
+
+    if (result.error) {
+      console.log(result.error);
+    }
+  };
+  const recoll = () => {
+    navigate("/Log");
+  };
+  const Login = () => {
+    toast.success("Login Successfull", {
+      position: "top-center",
+    });
+  };
+  const [pop, setpop] = useState(false);
+  const [popR, setpopR] = useState(false);
+  const [popEmail, setpopEmail] = useState(false);
+  const [popNewp, setpopNewp] = useState(false);
+  const [allstate, setallstate] = useState([]);
+  const [selectedState, setSelectedState] = useState("");
+  const [districts, setDistricts] = useState([]);
+  const [selecteddistricts, setSelecteddistricts] = useState("");
+  const [selectedPayment, setSelectedPayment] = useState("Cod");
+
+  const btn = () => {
+    setpop(false);
+    Login();
+  };
+  const btnr = () => {
+    setpopR(true);
+    setpop(false);
+  };
+  const Rbtnclose = () => {
+    setpopR(false);
+  };
+  const btn1 = () => {
+    setpop(true);
+    setpopR(false);
+  };
+  const Emailbtn = () => {
+    setpopEmail(false);
+  };
+  const EmailBtnSecond = () => {
+    setpopEmail(false);
+    setpopNewp(true);
+  };
+  const btnForget = () => {
+    setpopEmail(true);
+    setpop(false);
+  };
+  const Newpass = () => {
+    setpopNewp(false);
+  };
+  const Newpass2 = () => {
+    setpopNewp(false);
+    setpop(true);
+  };
+  const call1 = () => {
+    fetch("http://localhost/cartshow.php")
+      .then((res) => {
+        return res.json();
+      })
+      .then((result) => {
+        setcartdata(result);
+      });
+  };
+  useEffect(() => {
+    call1();
+  }, []);
+
+  const call2 = () => {
+    let config = {
+      method: "get",
+      url: "http://api.nightlights.io/districts",
+      headers: {
+        Authorization:
+          "Bearer j7krDJVN_CE1fSQte66X-mdlL9Gc6_YX-2UXDHz7Gx8ZJ1i6-OTFBlyUvW9sMh-9IQU",
+      },
+    };
+
+    axios
+      .request(config)
+      .then((res) => {
+        setallstate(res.data.regions);
+      })
+      .catch((err) => console.log("err", err));
+  };
+
+  useEffect(() => {
+    call2();
+  }, []);
+  const uniqueStates = [...new Set(allstate.map((state) => state.state_name))];
+  const handleStateChange = (e) => {
+   
+    const selectedState = e.target.value; // Use the value from the event
+    setSelectedState(selectedState);
+    const filteredDistricts = allstate.filter(
+      (val) => val.state_name === selectedState
+    );
+    setDistricts(filteredDistricts);
+  };
+
+  const handleDistrictChange = (e) => {
+    
+    const selectedDistricts = e.target.value;
+    setSelecteddistricts(selectedDistricts);
+  };
+  // console.log("distr", selecteddistricts);
+  // console.log("state", selectedState);
+  const handlePaymentChange = (e) => {
+    setSelectedPayment(e.target.value);
+  };
+  const [alldata, setalldata] = useState([]);
+  const call3 = () => {
+    let config = {
+      method: "get",
+      url: " http://api.nightlights.io/districts/gujarat-amreli/villages",
+      // headers: {
+      //   Authorization:
+      //     "Bearer j7krDJVN_CE1fSQte66X-mdlL9Gc6_YX-2UXDHz7Gx8ZJ1i6-OTFBlyUvW9sMh-9IQU",
+      // },
+    };
+
+    axios
+      .request(config)
+      .then((res) => {
+        setalldata(res);
+      })
+      .catch((err) => console.log("err", err));
+  };
+
+  useEffect(() => {
+    call3();
+  }, []);
+
+  const initialValues = {
+    FName: "",
+    LName: "",
+    Contact: "",
+    Email: "",
+    Taluka: "",
+    Addressd: "",
+    State:"",
+    District:"",
+    City: "",
+    House: "",
+    Pincode: "",
+  };
+  const {
+    values,
+    errors,
+    touched,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    resetForm,
+  } = useFormik({
+    initialValues: initialValues,
+    validationSchema: Address,
+    onSubmit: (values) => {
+      axios({
+        method: "post",
+        url: "http://localhost/Address.php",
+        data: {
+          ...values,
+          UserId: LoginId,
+          Payment: selectedPayment,
+        },
+        headers: { "Content-Type": "multipart/form-data" },
+      }).then((res) => {});
+   
+    },
+  });
+  const handleCombinedStateChange = (e) => {
+    handleChange(e);
+    handleStateChange(e);
+  };
+  console.log("wrr",values)
+
+  return (
+    <>
+      <Header></Header>
+      {pop ? <Poppop pass={btn} pass2={btnr} pass3={btnForget} /> : null}
+      {popR ? <PoppopR pass={btn1} pass2={Rbtnclose}></PoppopR> : null}
+      {popEmail ? (
+        <PoppopEmail pass={Emailbtn} pass2={EmailBtnSecond}></PoppopEmail>
+      ) : null}
+      {popNewp ? (
+        <PoppopNewPass pass={Newpass} pass2={Newpass2}></PoppopNewPass>
+      ) : null}
+      <section className="bg-light py-5">
+        <div className="container">
+          <div className="row">
+            <div className="col-xl-8 col-lg-8 mb-4">
+              <form onSubmit={handleSubmit}>
+                {/* Checkout */}
+                <div className="card shadow-0 border">
+                  <div className="p-4">
+                    <h5 className="card-title mb-3">Guest checkout</h5>
+                    <div className="row">
+                      <div className="col-6 mb-3">
+                        <p className="mb-0" style={{ display: "flex" }}>
+                          First name
+                        </p>
+                        <div className="form-outline">
+                          <input
+                            type="text"
+                            id="FName"
+                            name="FName"
+                            placeholder="Type here"
+                            className="form-control"
+                            style={{ fontSize: "10pxx" }}
+                            onChange={handleChange}
+                            value={values.FName}
+                            onBlur={handleBlur}
+                          />
+                        </div>
+                        {errors.FName && touched.FName ? (
+                              <p className="form-error">{errors.FName}</p>
+                            ) : null}
+                      </div>
+                      <div className="col-6">
+                        <p className="mb-0" style={{ display: "flex" }}>
+                          Last name
+                        </p>
+                        <div className="form-outline">
+                          <input
+                            type="text"
+                            id="LName"
+                            name="LName"
+                            placeholder="Type here"
+                            className="form-control"
+                            onChange={handleChange}
+                            value={values.LName}
+                            onBlur={handleBlur}
+                          />
+                        </div>
+                        {errors.LName && touched.LName ? (
+                              <p className="form-error">{errors.LName}</p>
+                            ) : null}
+                      </div>
+                      <div className="col-6 mb-3">
+                        <p className="mb-0" style={{ display: "flex" }}>
+                          Phone
+                        </p>
+                        <div className="form-outline">
+                          <input
+                            type="tel"
+                            id="Contact"
+                            name="Contact"
+                            placeholder="Enter Contact number"
+                            // defaultValue={+91}
+                            className="form-control"
+                            onChange={handleChange}
+                            value={values.Contact}
+                            onBlur={handleBlur}
+                          />
+                        </div>
+                        {errors.Contact && touched.Contact ? (
+                              <p className="form-error">{errors.Contact}</p>
+                            ) : null}
+                      </div>
+                      <div className="col-6 mb-3">
+                        <p className="mb-0" style={{ display: "flex" }}>
+                          Email
+                        </p>
+                        <div className="form-outline">
+                          <input
+                            type="email"
+                            id="Email"
+                            name="Email"
+                            placeholder="example@gmail.com"
+                            className="form-control"
+                            onChange={handleChange}
+                            value={values.Email}
+                            onBlur={handleBlur}
+                          />
+                        </div>
+                        {errors.Email && touched.Email ? (
+                              <p className="form-error">{errors.Email}</p>
+                            ) : null}
+                      </div>
+                    </div>
+
+                    <hr className="my-4" />
+                    <h5 className="card-title mb-3" style={{ display: "flex" }}>
+                      Shipping info
+                    </h5>
+
+                    <div className="row mb-3">
+                      <div className="col-lg-4 mb-3">
+                        {/* Default checked radio */}
+                        <div className="form-check h-100 border rounded-3">
+                          <div className="p-3">
+                            <input
+                              className="form-check-input"
+                              type="radio"
+                              name="Cod"
+                              id="Cod"
+                              defaultChecked="true"
+                              value="Cod"
+                              checked={selectedPayment === "Cod"}
+                              onChange={handlePaymentChange}
+                            />
+                            <label
+                              className="form-check-label"
+                              htmlFor="flexRadioDefault1"
+                            >
+                              Cash on Delevery <br />
+                              <small className="text-muted">
+                                3-4 days via Fedex{" "}
+                              </small>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="col-lg-4 mb-3">
+                        {/* Default radio */}
+                        <div className="form-check h-100 border rounded-3">
+                          <div className="p-3">
+                            <input
+                              className="form-check-input"
+                              type="radio"
+                              name="Card"
+                              id="Card"
+                              value="Card"
+                              checked={selectedPayment === "Card"}
+                              onChange={handlePaymentChange}
+                            />
+                            <label
+                              className="form-check-label"
+                              htmlFor="flexRadioDefault2"
+                            >
+                              Card Payment <br />
+                              <small className="text-muted">
+                                20-30 days via post{" "}
+                              </small>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="row">
+                      <div className="col-sm-4 mb-3">
+                        <p className="mb-0" style={{ display: "flex" }}>
+                          State
+                        </p>
+                        <select
+                          className="form-select"
+                          // value={selectedState}
+                          // onChange={handleStateChange}
+                          name="State"
+                          id="State"
+                          onChange={handleCombinedStateChange}
+                          value={values.State}
+                          onBlur={handleBlur}
+                        >
+                          <option  value="">Selecet State</option>
+                          {uniqueStates.map((state, index) => (
+                            <option key={index} value={state}>
+                              {state}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                      {errors.State && touched.State ? (
+                              <p className="form-error">{errors.State}</p>
+                            ) : null}
+                      <div className="col-sm-4 mb-3">
+                        <p className="mb-0" style={{ display: "flex" }}>
+                          District
+                        </p>
+                        <select
+                          className="form-select"
+                          value={values.District}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          id="District"
+                          name="District"
+                        >
+                          <option
+
+                          // onChange={handleChange}
+                            value=""
+                          //   onBlur={handleBlur}
+                          >
+                            Select District
+                          </option>
+                          {districts.map((val, index) => (
+                            <option key={index} value={val.district_name}>
+                              {val.district_name}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                      {errors.District && touched.District ? (
+                              <p className="form-error">{errors.District}</p>
+                            ) : null}
+                      <div className="col-sm-4 col-6 mb-3">
+                        <p className="mb-0" style={{ display: "flex" }}>
+                          Taluka
+                        </p>
+                        <div className="form-outline">
+                          <input
+                            type="text"
+                            id="Taluka"
+                            name="Taluka"
+                            placeholder=" Type Zip Code "
+                            className="form-control"
+                            onChange={handleChange}
+                            value={values.Taluka}
+                            onBlur={handleBlur}
+                          />
+                        </div>
+                        {errors.Taluka && touched.Taluka ? (
+                              <p className="form-error">{errors.Taluka}</p>
+                            ) : null}
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-sm-8 mb-3">
+                        <p className="mb-0" style={{ display: "flex" }}>
+                          Address
+                        </p>
+                        <div className="form-outline">
+                          <input
+                            type="text"
+                            id="Addressd"
+                            name="Addressd"
+                            placeholder="Type here"
+                            className="form-control"
+                            onChange={handleChange}
+                            value={values.Addressd}
+                            onBlur={handleBlur}
+                          />
+                        </div>
+                        {errors.Addressd && touched.Addressd ? (
+                              <p className="form-error">{errors.Addressd}</p>
+                            ) : null}
+                      </div>
+                      <div className="col-sm-4 col-6 mb-3">
+                        <p className="mb-0" style={{ display: "flex" }}>
+                          City/villge
+                        </p>
+                        <div className="form-outline">
+                          <input
+                            type="text"
+                            id="City"
+                            name="City"
+                            placeholder=" Type Zip Code "
+                            className="form-control"
+                            onChange={handleChange}
+                            value={values.City}
+                            onBlur={handleBlur}
+                          />
+                        </div>
+                        {errors.City && touched.City ? (
+                              <p className="form-error">{errors.City}</p>
+                            ) : null}
+                      </div>
+                      <div className="col-sm-4 mb-3">
+                        <p className="mb-0" style={{ display: "flex" }}>
+                          House
+                        </p>
+                        <div className="form-outline">
+                          <input
+                            type="text"
+                            id="House"
+                            name="House"
+                            placeholder="Type here"
+                            className="form-control"
+                            onChange={handleChange}
+                            value={values.House}
+                            onBlur={handleBlur}
+                          />
+                        </div>
+                        {errors.House && touched.House ? (
+                              <p className="form-error">{errors.House}</p>
+                            ) : null}
+                      </div>
+                      <div className="col-sm-4 col-6 mb-3">
+                        <p className="mb-0">Pin code</p>
+                        <div className="form-outline">
+                          <input
+                            type="Number"
+                            id="Pincode"
+                            name="Pincode"
+                            placeholder="Type Pin code"
+                            className="form-control"
+                            onChange={handleChange}
+                            value={values.Pincode}
+                            onBlur={handleBlur}
+                          />
+                        </div>
+                        {errors.Pincode && touched.Pincode ? (
+                              <p className="form-error">{errors.Pincode}</p>
+                            ) : null}
+                      </div>
+                      {/* <div className="col-sm-4 col-6 mb-3">
+                      <p className="mb-0" style={{ display: "flex" }}>
+                        Zip
+                      </p>
+                      <div className="form-outline">
+                        <input
+                          type="text"
+                          id="typeText"
+                          placeholder=" Type Zip Code "
+                          className="form-control"
+                        />
+                      </div>
+                    </div> */}
+                    </div>
+
+                    {/* <div className="mb-3">
+                    <p className="mb-0" style={{ display: "flex" }}>
+                      Message to seller
+                    </p>
+                    <div className="form-outline">
+                      <textarea
+                        className="form-control"
+                        id="textAreaExample1"
+                        placeholder=" Type Message"
+                        rows={2}
+                        defaultValue={""}
+                      />
+                    </div>
+                  </div> */}
+                    <button type="submit" className="model-btn">
+                      save
+                    </button>
+                    <div className="float-end">
+                      <button
+                        className="btn btn-light border"
+                        style={{ width: "90px", height: "35px" }}
+                      >
+                        Cancel
+                      </button>
+                      {UserLogin.length === 0 ? (
+                        <button
+                          className="btn btn-success shadow-0 border"
+                          style={{
+                            width: "90px",
+                            height: "35px",
+                            backgroundColor: "#3fb698",
+                          }}
+                          onClick={() => {
+                            setpop(true);
+                          }}
+                        >
+                          Pay
+                        </button>
+                      ) : (
+                        <button
+                          className="btn btn-success shadow-0 border"
+                          style={{
+                            width: "90px",
+                            height: "35px",
+                            backgroundColor: "#3fb698",
+                          }}
+                          onClick={() => {
+                            makePayment();
+                          }}
+                        >
+                          Pay
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </form>
+              {/* Checkout */}
+            </div>
+
+            <div
+              className="col-xl-4 col-lg-4 d-flex justify-content-center justify-content-lg-start"
+              style={{
+                width: "380px",
+                // margin: "0 0 0 20px",
+                background: "grey",
+              }}
+            >
+              <div
+                className="ms-lg-4 mt-4 mt-lg-4 w-100"
+                style={{ maxWidth: "450px" }}
+              >
+                <h4 className="mb-3">Summary</h4>
+                {/* <div className="d-flex justify-content-between">
+                  <p className="mb-2">Total price:</p>
+                  <p className="mb-2">Rs:{Price}</p>
+                </div>
+                <div className="d-flex justify-content-between">
+                  <p className="mb-2">Discount:</p>
+                  <p className="mb-2 text-danger">- $60.00</p>
+                </div>
+                <div className="d-flex justify-content-between">
+                  <p className="mb-2">Shipping cost:</p>
+                  <p className="mb-2">+ Rs:100.00</p>
+                </div> */}
+                <hr />
+                <div className="d-flex justify-content-between">
+                  <p className="mb-2">Total price:</p>
+                  <p className="mb-2 fw-bold">Rs:{lastp}</p>
+                </div>
+
+                <hr />
+                <h4 className="text-dark my-4">Total Item</h4>
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "auto auto",
+                    gap: "10px",
+                    padding: "10px",
+                  }}
+                >
+                  {Final.map((val) => (
+                    <div
+                      key={val.id}
+                      style={{
+                        background: "white",
+                        padding: "10px",
+                        borderRadius: "5px",
+                      }}
+                    >
+                      <div className="d-flex align-items-center">
+                        <div className="me-3 position-relative">
+                          <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill badge-secondary"></span>
+                          <img
+                            src={val.Img}
+                            style={{ height: 96, width: "96x" }}
+                            className="img-sm rounded border"
+                          />
+                        </div>
+                        <div className="">
+                          <a href="#" className="nav-link">
+                            {val.Title} <br />
+                            Quantity:{val.quantity}
+                          </a>
+                          <div className="price text-muted">
+                            Total:{val.Price * val.quantity}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <Footer></Footer>
+    </>
+  );
+}
+export default Order;

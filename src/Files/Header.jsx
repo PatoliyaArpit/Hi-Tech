@@ -12,19 +12,33 @@ import PoppopEmail from "./Popup/PoppopEmail";
 import PoppopNewPass from "./Popup/PoppopNewPass";
 
 const Header = (props) => {
- 
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const cartitem = useSelector((state) => state.cart.cart);
   const UserLogin = useSelector((state) => state.log.log);
   const show = useSelector((state) => state.reg.reg);
-  
+  const [pop, setpop] = useState(false);
+  const [popR, setpopR] = useState(false);
+  const [popEmail, setpopEmail] = useState(false);
+  const [popNewp, setpopNewp] = useState(false);
+  const [cartdata, setcartdata] = useState([]);
+  const [LoginId, setLoginId] = useState([]);
+  const [Final, setFinal] = useState([]);
+  const [Loginname,setLoginname]=useState('');
   const [data, setdata] = useState("");
 
+
   useEffect(() => {
-    if (show.length > 0) {
-      setdata(show[0].Name);
-    }
+    UserLogin.map((val) => {
+      const firstName = val.Name.split(' ')[0];
+      const cut =firstName.slice(0,5) // Split the full name and take the first part
+      setLoginname(cut);
+    });
+  }, [UserLogin]);
+  console.log("Show",show)
+  useEffect(() => {
+    const names = UserLogin.map((val) => val.Name);
+    setdata(names);
   }, [show]);
 
   const toggleMenu = () => {
@@ -34,13 +48,6 @@ const Header = (props) => {
     setActiveDropdown(activeDropdown === menu ? null : menu);
   };
 
-  const [pop, setpop] = useState(false);
-  const [popR, setpopR] = useState(false);
-  const [popEmail, setpopEmail] = useState(false);
-  const [popNewp, setpopNewp] = useState(false);
-  const [cartdata, setcartdata] = useState([]);
-  const [LoginId, setLoginId] = useState([]);
-  const [Final, setFinal] = useState([]);
   useEffect(() => {
     UserLogin.map((val) => {
       setLoginId(val.Id);
@@ -59,7 +66,6 @@ const Header = (props) => {
       }
     }
   }, [cartdata, LoginId]);
-  
 
   const btn = () => {
     setpop(false);
@@ -98,7 +104,7 @@ const Header = (props) => {
   const clickup = () => {
     window.scroll(0, 0);
   };
-  
+
   const call1 = () => {
     fetch("http://localhost/cartshow.php")
       .then((res) => {
@@ -111,7 +117,7 @@ const Header = (props) => {
   useEffect(() => {
     call1();
   }, [props]);
-
+console.log("deta",data);
   return (
     <>
       <header className=" shadow ">
@@ -131,7 +137,7 @@ const Header = (props) => {
 
         <div className="header-upper-area">
           <ReactWhatsapp
-            number="6355797825"
+            number="9316868577"
             message={`I am ${data}`}
             style={{ border: "none" }}
           >
@@ -221,7 +227,7 @@ const Header = (props) => {
             <div className="row">
               <div className="col-lg-2 col-sm-10 col-10 logo">
                 <div className="logo">
-                  <a href="23_index-4.html">
+                  <a >
                     <img src="img/home1/hitech2.jpg" alt="" />
                   </a>
                 </div>
@@ -273,6 +279,7 @@ const Header = (props) => {
                             activeDropdown === "Shortcode" ? "show" : ""
                           }`}
                           aria-labelledby="navbarDropdown"
+                          
                         >
                           <li>
                             <ul>
@@ -281,10 +288,6 @@ const Header = (props) => {
                                   Case
                                 </Link>
                               </li>
-                            </ul>
-                          </li>
-                          <li>
-                            <ul>
                               <li>
                                 <Link to="/CaseD" className="nav-link">
                                   CaseD
@@ -292,6 +295,7 @@ const Header = (props) => {
                               </li>
                             </ul>
                           </li>
+                          
                         </ul>
                       </li>
 
@@ -320,9 +324,7 @@ const Header = (props) => {
                           aria-labelledby="navbarDropdown"
                         >
                           <li>
-                            <a href="#" className="dropdown-item">
-                              Column 1
-                            </a>
+                            
                             <ul>
                               <li>
                                 <Link
@@ -349,15 +351,13 @@ const Header = (props) => {
                               </li>
                               <li>
                                 <Link to="/Gallery" className="nav-link">
-                                  Galleries
+                                  Gallery
                                 </Link>
                               </li>
                             </ul>
                           </li>
                           <li>
-                            <a href="#" className="nav-link">
-                              Column 2
-                            </a>
+                            
                             <ul>
                               <li>
                                 <Link to="/Step" className="nav-link">
@@ -371,7 +371,7 @@ const Header = (props) => {
                               </li>
                               <li>
                                 <Link to="/Map" className="nav-link">
-                                  Maps
+                                  Map
                                 </Link>
                               </li>
                             </ul>
@@ -423,9 +423,7 @@ const Header = (props) => {
                           <h4 className="modal-title">Type and Press Enter</h4>
                           <form action="#">
                             <input type="text" placeholder="Search Here" />
-                            <button className=" btn-success ml-3 rounded-pill w-6   ">
-                              Search
-                            </button>
+                            
                             <BsSearch />
                           </form>
                           <div className="modal-close">
@@ -458,8 +456,22 @@ const Header = (props) => {
                             as={Link}
                             to="/Profile"
                             className="link nav-link"
+                            style={{ width: "80px", height: "45px" }}
                           >
-                            <i class="fa-regular fa-user"></i>
+                            <div
+                              style={{
+                                display: "grid",
+                                gridTemplateColumns: "auto auto",
+                                gap: "4px",
+                              }}
+                            >
+                              <i
+                                class="fa-regular fa-user"
+                                style={{ margin: "0 0 0 -14px" }}
+                              ></i>
+                             
+                              <p >Hi.{Loginname}</p>
+                            </div>
                           </Link>
                         )}
                       </div>

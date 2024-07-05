@@ -1,24 +1,26 @@
-
 import './App.css';
 import{BrowserRouter,Routes,Route}from 'react-router-dom';
-import Home from './Files/Home';
-import About from './Files/About';
-import Service from './Files/Service';
-import ServiceD from './Files/ServiceD';
-import Case from './Files/Case';
-import CaseD from './Files/CaseD';
+import { Suspense,lazy } from 'react';
+// import Home from './Files/Home';
+const Home=lazy(()=>import('./Files/Home'))
+// import About from './Files/About';
+const About=lazy(()=>import('./Files/About'))
+// import Service from './Files/Service';
+const Service=lazy(()=>import('./Files/Service'))
+// import ServiceD from './Files/ServiceD';
+const ServiceD =lazy(()=>import('./Files/ServiceD'))
+// import Case from './Files/Case';
+const Case =lazy(()=>import('./Files/Case'))
+// import CaseD from './Files/CaseD';
+const CaseD=lazy(()=>import('./Files/CaseD'))
 import Gallary from './Files/Gallery';
 import List from './Files/List';
 import Team from './Files/Team';
 import Map from './Files/Map';
 import Contact from './Files/Contact';
 import Gimg from './Files/Gimg';
-import Price from './Files/Price';
 import Step from './Files/Step';
-import Register from './Files/Register';
-import Log from './Files/Log';
 import Order from './Files/Order';
-import MyAdmin from './Files/MyAdmin';
 import PDetails from './Files/PDetails';
 import { Provider } from 'react-redux';
 import store from './Files/redux/Store';
@@ -30,13 +32,18 @@ import Loader from './Files/Loader';
 import { useEffect, useState } from 'react';
 import Sucess from './Files/Sucess';
 import Cancel from './Files/Cancel';
-import Plan from './Files/Plan';
+
+import Profile from './Files/Profile';
+import Plan from './Files/Smallcompo/Plan';
+import PaymentType from './Files/PaymentType';
+
+
 
 function App() {
 
   const [Load,setLoad]=useState(false)
   const users = useSelector((state) => state.reg.reg);
-  const final = useSelector((state) => state.log.log);
+  const UserLogin = useSelector((state) => state.log.log);
   const Cart=useSelector((state)=>state.cart.cart)
 
 
@@ -53,21 +60,20 @@ function App() {
     <div className="App">
       {/* <Home></Home> */}
       {/* <Nav></Nav> */}
+      <Suspense fallback={<div>Loading...</div>}>
       <BrowserRouter>
       <Routes>
+      
         {
           Load? <Route path='/' element={<Loader></Loader>}></Route>:
           <>
+       <Route path='/' element={<Home></Home>}></Route>
            {
-          final.length==0||final===undefined? <Route path='/' element={<Log></Log>}></Route>: <Route path='/' element={<Home></Home>}></Route>
+          UserLogin.length==0||UserLogin===undefined? <Route path='/' element={<Home></Home>}></Route>: <Route path='/' element={<Home></Home>}></Route>
         }
-        {
-           final.length==0||final===undefined? <Route path='Register' element={<Register></Register>}></Route>: <Route path='Register' element={<Home></Home>}></Route>
-        }
-        {
-           final.length==0||final===undefined? <Route path='Log' element={<Log></Log>}></Route>: <Route path='Log' element={<Home></Home>}></Route>
-         }
-        <Route path='Log' element={<Log></Log>}></Route>
+       
+          
+      {/* <Route path='Log' element={<Log></Log>}></Route> */}
         <Route path='Home'element={<Home></Home>}></Route>
         <Route path='About' element={<About></About>}></Route>
         <Route path='Service' element={<Service></Service>}></Route>
@@ -80,27 +86,26 @@ function App() {
         <Route path='Map' element={<Map></Map>}></Route>
         <Route path='Contact' element={<Contact></Contact>}></Route>
         <Route path='Gimg' element={<Gimg></Gimg>}></Route>
-        <Route path='Price' element={<Price></Price>}></Route>
         <Route path='Step' element={<Step></Step>}></Route>
-       {
-       final.length==0||final===undefined? <Route path='Order' element={<Log></Log>}></Route>: <Route path='Order' element={<Order></Order>}></Route>
-       }
-        <Route path='MyAdmin' element={<MyAdmin></MyAdmin>}></Route>
+        <Route path='Order' element={<Order></Order>}></Route>
         <Route path='PDetails/:ids' element={<PDetails></PDetails>}></Route>
-        
        <Route path='Checkout' element={<Checkout></Checkout>}></Route>
         <Route path='Header' element={<Header></Header>}></Route>
         <Route path='Footer' element={<Footer></Footer>}></Route> 
         <Route path='success' element={<Sucess></Sucess>}></Route> 
         <Route path='cancel' element={<Cancel></Cancel>}></Route> 
         <Route path='Plan' element={<Plan></Plan>}></Route> 
+        {
+          UserLogin.length===0?   <Route path='Profile' element={<Home></Home>}></Route>:<Route path='Profile' element={<Profile></Profile>}></Route>
+        }
+        <Route path='Profile' element={<Profile></Profile>}></Route> 
+        <Route path='PaymentType' element={<PaymentType></PaymentType>}></Route> 
+       
           </>
         }
-       
-       
-      
       </Routes>
       </BrowserRouter>
+      </Suspense>
     </div>
     </Provider>
   );

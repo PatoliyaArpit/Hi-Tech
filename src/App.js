@@ -1,101 +1,98 @@
 import './App.css';
-import{BrowserRouter,Routes,Route}from 'react-router-dom';
-import Home from './Files/Home';
-import About from './Files/About';
-import Service from './Files/Service';
-import ServiceD from './Files/ServiceD';
-import Case from './Files/Case';
-import CaseD from './Files/CaseD';
-import Gallary from './Files/Gallery';
-import List from './Files/List';
-import Team from './Files/Team';
-import Map from './Files/Map';
-import Contact from './Files/Contact';
-import Gimg from './Files/Gimg';
-import Step from './Files/Step';
-import Order from './Files/Order';
-import PDetails from './Files/PDetails';
-import { Provider } from 'react-redux';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Suspense, lazy, useEffect, useState } from 'react';
+import { Provider, useSelector } from 'react-redux';
 import store from './Files/redux/Store';
-import Checkout from './Files/Checkout';
-import { useDispatch, useSelector } from "react-redux";
-import Header from './Files/Header';
-import Footer from './Files/Footer';
-import Loader from './Files/Loader';
-import { useEffect, useState } from 'react';
-import Sucess from './Files/Sucess';
-import Cancel from './Files/Cancel';
 
-import Profile from './Files/Profile';
-import Plan from './Files/Smallcompo/Plan';
-
-
+const Home = lazy(() => import('./Files/Home'));
+const About = lazy(() => import('./Files/About'));
+const Service = lazy(() => import('./Files/Service'));
+const ServiceD = lazy(() => import('./Files/ServiceD'));
+const Case = lazy(() => import('./Files/Case'));
+const CaseD = lazy(() => import('./Files/CaseD'));
+const Gallery = lazy(() => import('./Files/Gallery'));
+const List = lazy(() => import('./Files/List'));
+const Team = lazy(() => import('./Files/Team'));
+const Map = lazy(() => import('./Files/Map'));
+const Contact = lazy(() => import('./Files/Contact'));
+const Gimg = lazy(() => import('./Files/Gimg'));
+const Step = lazy(() => import('./Files/Step'));
+const Order = lazy(() => import('./Files/Order'));
+const PDetails = lazy(() => import('./Files/PDetails'));
+const Checkout = lazy(() => import('./Files/Checkout'));
+const Header = lazy(() => import('./Files/Header'));
+const Footer = lazy(() => import('./Files/Footer'));
+const Loader = lazy(() => import('./Files/Loader'));
+const Success = lazy(() => import('./Files/Sucess'));
+const Cancel = lazy(() => import('./Files/Cancel'));
+const Profile = lazy(() => import('./Files/Profile'));
+const Plan = lazy(() => import('./Files/Smallcompo/Plan'));
+const PaymentType = lazy(() => import('./Files/PaymentType'));
 
 function App() {
-
-  const [Load,setLoad]=useState(false)
+  const [load, setLoad] = useState(false);
   const users = useSelector((state) => state.reg.reg);
-  const UserLogin = useSelector((state) => state.log.log);
-  const Cart=useSelector((state)=>state.cart.cart)
+  const userLogin = useSelector((state) => state.log.log);
+  const cart = useSelector((state) => state.cart.cart);
 
+  // Uncomment this block if you need to show the loader initially
+  // useEffect(() => {
+  //   setLoad(true);
+  //   setTimeout(() => {
+  //     setLoad(false);
+  //   }, 5000);
+  // }, []);
 
-  // useEffect(()=>{
-  //   setLoad(true)
-  //   setTimeout(()=>{
-  //   setLoad(false)
-  //   },5000)
-  // },[])
   return (
-
-   
     <Provider store={store}>
-    <div className="App">
-      {/* <Home></Home> */}
-      {/* <Nav></Nav> */}
-      <BrowserRouter>
-      <Routes>
-      
-        {
-          Load? <Route path='/' element={<Loader></Loader>}></Route>:
-          <>
-       <Route path='/' element={<Home></Home>}></Route>
-           {
-          UserLogin.length==0||UserLogin===undefined? <Route path='/' element={<Home></Home>}></Route>: <Route path='/' element={<Home></Home>}></Route>
-        }
-       
-          {/* <Route path='Register' element={<PoppopR></PoppopR>}></Route> */}
-      {/* <Route path='Log' element={<Log></Log>}></Route> */}
-        <Route path='Home'element={<Home></Home>}></Route>
-        <Route path='About' element={<About></About>}></Route>
-        <Route path='Service' element={<Service></Service>}></Route>
-        <Route path='ServiceD' element={<ServiceD></ServiceD>}></Route>
-        <Route path='Case' element={<Case></Case>}></Route>
-        <Route path='CaseD' element={<CaseD></CaseD>}></Route>
-        <Route path='Gallery' element={<Gallary></Gallary>}></Route>
-        <Route path='List' element={<List></List>}></Route>
-        <Route path='Team' element={<Team></Team>}></Route>
-        <Route path='Map' element={<Map></Map>}></Route>
-        <Route path='Contact' element={<Contact></Contact>}></Route>
-        <Route path='Gimg' element={<Gimg></Gimg>}></Route>
-        <Route path='Step' element={<Step></Step>}></Route>
-        <Route path='Order' element={<Order></Order>}></Route>
-        <Route path='PDetails/:ids' element={<PDetails></PDetails>}></Route>
-       <Route path='Checkout' element={<Checkout></Checkout>}></Route>
-        <Route path='Header' element={<Header></Header>}></Route>
-        <Route path='Footer' element={<Footer></Footer>}></Route> 
-        <Route path='success' element={<Sucess></Sucess>}></Route> 
-        <Route path='cancel' element={<Cancel></Cancel>}></Route> 
-        <Route path='Plan' element={<Plan></Plan>}></Route> 
-        {
-          UserLogin.length===0?   <Route path='Profile' element={<Home></Home>}></Route>:<Route path='Profile' element={<Profile></Profile>}></Route>
-        }
-        <Route path='Profile' element={<Profile></Profile>}></Route> 
-       
-          </>
-        }
-      </Routes>
-      </BrowserRouter>
-    </div>
+      <div className="App">
+        <Suspense fallback={<Loader/>}>
+          <BrowserRouter>
+            <Routes>
+              {load ? (
+                <Route path="/" element={<Loader />} />
+              ) : (
+                <>
+                  <Route path="/" element={<Home />} />
+                  {userLogin.length === 0 || userLogin === undefined ? (
+                    <Route path="/" element={<Home />} />
+                  ) : (
+                    <Route path="/" element={<Home />} />
+                  )}
+                  <Route path="Home" element={<Home />} />
+                  <Route path="About" element={<About />} />
+                  <Route path="Service" element={<Service />} />
+                  <Route path="ServiceD" element={<ServiceD />} />
+                  <Route path="Case" element={<Case />} />
+                  <Route path="CaseD" element={<CaseD />} />
+                  <Route path="Gallery" element={<Gallery />} />
+                  <Route path="List" element={<List />} />
+                  <Route path="Team" element={<Team />} />
+                  <Route path="Map" element={<Map />} />
+                  <Route path="Contact" element={<Contact />} />
+                  <Route path="Gimg" element={<Gimg />} />
+                  <Route path="Step" element={<Step />} />
+                  <Route path="Order" element={<Order />} />
+                  <Route path="PDetails/:ids" element={<PDetails />} />
+                  <Route path="Checkout" element={<Checkout />} />
+                  <Route path="Header" element={<Header />} />
+                  <Route path="Footer" element={<Footer />} />
+                  <Route path="success" element={<Success />} />
+                  <Route path="cancel" element={<Cancel />} />
+                  <Route path="Plan" element={<Plan />} />
+                  {userLogin.length === 0 ? (
+                    <Route path="Profile" element={<Home />} />
+                  ) : (
+                    <Route path="Profile" element={<Profile />} />
+                  )}
+                  <Route path="Profile" element={<Profile />} />
+                  <Route path="PaymentType" element={<PaymentType />} />
+                </>
+              )}
+            </Routes>
+          </BrowserRouter>
+        </Suspense>
+      </div>
     </Provider>
   );
 }
